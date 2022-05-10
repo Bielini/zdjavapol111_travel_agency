@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import pl.sda.zdjavapol111_travel_agency.model.User;
+import pl.sda.zdjavapol111_travel_agency.repository.UserRepository;
 
 import java.util.stream.Collectors;
 
