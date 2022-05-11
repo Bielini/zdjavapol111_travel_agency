@@ -1,9 +1,14 @@
-insert into continent (id, name) values (1, 'Europa')
+insert into continent (id, name) values (1, 'Europa');
 
-INSERT INTO COUNTRY (ID, NAME) VALUES (1, 'Hiszpania')
-INSERT INTO COUNTRY (ID, NAME) VALUES (2, 'Grecja')
-INSERT INTO COUNTRY (ID, NAME) VALUES (3, 'Polska')
-INSERT INTO COUNTRY (ID, NAME) VALUES (4, 'Turcja')
+INSERT INTO COUNTRY (ID, NAME) VALUES (1, 'Hiszpania');
+INSERT INTO COUNTRY (ID, NAME) VALUES (2, 'Grecja');
+INSERT INTO COUNTRY (ID, NAME) VALUES (3, 'Polska');
+INSERT INTO COUNTRY (ID, NAME) VALUES (4, 'Turcja');
+
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (1,1);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (1,2);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (1,3);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (1,4);
 
 insert into city (id, name, country_id) values (1, 'Malaga', 1);
 insert into city (id, name, country_id) values (2, 'Ateny', 2);
