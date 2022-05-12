@@ -25,12 +25,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable() //do usunięcia na koniec
                 .authorizeRequests()
-                .antMatchers("/login", "/h2-console/**", "/registration", "/register", "/travels-main")
+                .antMatchers("/login", "/h2-console/**", "/tours/**")
                 .permitAll()
                 .antMatchers("/admin/**")
-                .hasAnyRole("ROLE_ADMIN")
+                .hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers("/**")
-                .hasAnyRole("USER", "ADMIN")
+                .hasAnyRole("CUSTOMER", "ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login") //ToDo ewentualnie jakaś strona z podziękowaniem i zaproszeniem
+                .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .and()
                 .headers().frameOptions().disable(); //do usunięcia na koniec

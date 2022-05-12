@@ -19,9 +19,13 @@ insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_
 insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (2, 3, 2, 14, 4200, 3000, 1, 2, 0);
 insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 3, 4, 7, 5000, 3500, 0, 2, 1);
 
-insert into role (id, name) values(2, 'USER');
+insert into role (id, name) values(1, 'ADMIN');
+insert into role (id, name) values(2, 'CUSTOMER');
 
 insert into user (id, username, password) values(1, 'admin', '$2a$10$csIVj5k8CB74npTTstUQuO3ObjmaM6y8cRMxvsKqpHmT3zNQxY/IK');
+
+insert into user_role (user_id, role_id) values(1,1);
+
 --insert into continent (id, name) values (2, 'Azja')
 --insert into continent (id, name) values (3, 'Afryka')
 --
