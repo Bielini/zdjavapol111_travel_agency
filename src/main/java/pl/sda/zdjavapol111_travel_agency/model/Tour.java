@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -22,6 +23,8 @@ public class Tour {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private City originCity;
+
+    private Date startDate;
 
     private Integer durationTime;
 
