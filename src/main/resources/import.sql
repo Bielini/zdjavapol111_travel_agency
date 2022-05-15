@@ -15,9 +15,13 @@ insert into city (id, name, country_id) values (2, 'Ateny', 2);
 insert into city (id, name, country_id) values (3, 'Warszawa', 3);
 insert into city (id, name, country_id) values (4, 'Ankara', 4);
 
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (1, 3, 1, 7, 3500, 3000, 0, 2, 2);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (2, 3, 2, 14, 4200, 3000, 1, 2, 0);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 3, 4, 7, 5000, 3500, 0, 2, 1);
+insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 1, 7, 3500, 3000, 0, 2, 2);
+insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 2, 14, 4200, 3000, 1, 2, 0);
+insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 4, 7, 5000, 3500, 0, 2, 1);
+insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 1, 7, 3500, 3000, 0, 2, 2);
+insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 2, 14, 4200, 3000, 1, 2, 0);
+insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 2, 14, 4200, 3000, 1, 2, 0);
+insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 4, 7, 5000, 3500, 0, 2, 1);
 
 
 --insert into continent (id, name) values (2, 'Azja')
