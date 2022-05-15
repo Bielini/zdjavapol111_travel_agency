@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
+import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
 @Slf4j
 @Controller
@@ -22,6 +23,9 @@ public class TourController {
     @Autowired
     TourRepository tourRepository;
 
+    @Autowired
+    TourService tourService;
+
     @GetMapping(path = "/admin/add-tour")
     String showCreateTourForm(ModelMap modelMap) {
         modelMap.addAttribute("emptyTour", new Tour());
@@ -32,6 +36,7 @@ public class TourController {
     @PostMapping (path = "/admin/save")
     String handleNewTour(@ModelAttribute("emptyTour") Tour tour) {
         log.info("Handled new tour: " + tour);
+        tourService.calculateDuration(tour);
         tourRepository.save(tour);
         return "redirect:/admin/panel";
     }
