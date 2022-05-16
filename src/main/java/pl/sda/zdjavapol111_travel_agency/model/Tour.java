@@ -3,13 +3,11 @@ package pl.sda.zdjavapol111_travel_agency.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -24,12 +22,23 @@ public class Tour {
     @ManyToOne(fetch = FetchType.EAGER)
     private City destinationCity;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Airport destinationAirport; // to dodałam
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Hotel destinationHotel; // to dodałam
+
     @ManyToOne(fetch = FetchType.EAGER)
     private City originCity;
 
-    private String startDate;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Airport originAirport; // to dodałam
 
-    private String endDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate startDate; // to dodałam
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate endDate; // to dodałam
 
     private Integer durationTime;
 
@@ -42,5 +51,6 @@ public class Tour {
     private Integer adultSeats;
 
     private Integer minorSeats;
+
 
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Purchase</title>
+    <style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+
+</head>
+<body>
+
+
+<!--<form method="get" action="tour-purchase">-->
+    <h2>Zakup wycieczki</h2>
+    <table style="width:50%" class="table">
+        <tbody>
+        <tr>
+            <th style="text-align:left">Skąd - miasto:</th>
+            <td th:text="${origincityname}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Skąd - lotnisko:</th>
+            <td th:text="${originairport}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Dokąd - miasto:</th>
+            <td th:text="${destinationcity}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Dokąd - lotnisko:</th>
+            <td th:text="${destinationairport}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Dokąd - hotel:</th>
+            <td th:text="${destinationhotel}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Data - od:</th>
+            <td th:text="${datefrom}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Data - do:</th>
+            <td th:text="${dateto}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Ilość dostępnych miejsc - dorośli:</th>
+            <td th:text="${adultseats}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Ilość dostępnych miejsc - dzieci:</th>
+            <td th:text="${minorSeats}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Cena - dorosły:</th>
+            <td th:text="${adultsprice}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Cena - dziecko:</th>
+            <td th:text="${minorprice}"/>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <form method="post"  th:object="${tourvalue}">
+<table style="width:50%" class="table">
+    <tbody>
+        <tr>
+            <td>
+                <label>
+                    Ilość dorosłych:
+                </label>
+            </td>
+            <th><input type="number" name='adultamount'/></th>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Ilość dzieci:
+                </label>
+            </td>
+            <th><input type="number" name='childamount'/></th>
+        </tr>
+<!--        <tr>-->
+<!--            <td>-->
+<!--                <label>-->
+<!--                    Kontakt (teraz jest id):-->
+<!--                    <input type="text" th:field="*{chgw}"/>-->
+<!--                </label>-->
+<!--            </td>-->
+<!--        </tr>-->
+        <tr>
+            <td>
+                <label>
+                    <button type="submit" >Wylicz kwotę do zapłaty</button>
+                </label>
+            </td>
+            <th th:text="${tourvalue}"/>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit">Kupuję</button>
+</form>
+
+</body>
+</html>
