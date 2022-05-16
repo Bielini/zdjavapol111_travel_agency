@@ -8,6 +8,7 @@ import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
 import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -66,4 +67,22 @@ public class TourServiceImpl implements TourService {
     public List<Tour> getToursByOriginCity(String name) {
         return tourRepository.findAllToursByOriginCity(name);
     }
+
+   public List<Tour> filterTours(String searchField, String filter) {
+
+        switch (filter) {
+            case "destinationCity":
+                return tourRepository.findAllToursByDestinationCity(searchField);
+            case "originCity":
+                return tourRepository.findAllToursByOriginCity(searchField);
+            case "durationTime":
+                try{
+                    return tourRepository.findAllToursByDurationTime(Integer.parseInt(searchField));
+                }catch (IllegalArgumentException e){
+                    log.error("Thrown:"+e.getMessage());
+                }
+        }
+        return Collections.emptyList();
+    }
+
 }

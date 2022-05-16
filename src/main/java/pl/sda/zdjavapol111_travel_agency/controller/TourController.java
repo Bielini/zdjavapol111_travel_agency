@@ -46,27 +46,11 @@ public class TourController {
 
     @PostMapping("/tours/filter")
     public String handleNewUserByAdmin(@RequestParam("filter") String filter, @RequestParam("searchField") String searchField) {
-
         log.info("Received filter: " + filter + " & value of field: " + searchField);
-
-        try {
-            this.filteredTours = filterTours(searchField, filter);
-        } catch (IllegalArgumentException e) {
-            return "redirect:/tours";
-        }
+        this.filteredTours = tourService.filterTours(searchField, filter);
         return "redirect:/tours";
     }
 
-    private List<Tour> filterTours(String searchField, String filter) throws IllegalArgumentException {
 
-        switch (filter) {
-            case "destinationCity":
-                return tourService.getToursByDestCity(searchField);
-            case "originCity":
-                return tourService.getToursByOriginCity(searchField);
-            case "durationTime":
-                return tourService.getToursByDurationTime(Integer.parseInt(searchField));
-        }
-        return Collections.emptyList();
-    }
 }
+

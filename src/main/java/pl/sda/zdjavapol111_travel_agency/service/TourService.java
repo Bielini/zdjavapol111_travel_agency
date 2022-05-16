@@ -26,4 +26,5 @@ public interface TourService {
 
     List<Tour> getToursByDurationTime(Integer duration);
 
+    List<Tour> filterTours(String searchField, String filter);
 }
