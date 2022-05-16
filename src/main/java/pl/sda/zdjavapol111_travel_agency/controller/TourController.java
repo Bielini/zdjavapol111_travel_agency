@@ -1,13 +1,18 @@
 package pl.sda.zdjavapol111_travel_agency.controller;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.sda.zdjavapol111_travel_agency.model.Tour;
+import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
+import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
+import pl.sda.zdjavapol111_travel_agency.service.TourService;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.service.TourService;
@@ -25,15 +30,18 @@ public class TourController {
     @Autowired
     private TourService tourService;
 
-
     private List<Tour> filteredTours;
 
+    @Autowired
+    CityRepository cityRepository;
 
-    public TourController(TourService tourService) {
-        this.tourService = tourService;
+    @Autowired
+    TourRepository tourRepository;
+
+
+    public TourController() {
         this.filteredTours = tourService.getAllTours();
     }
-
 
     @GetMapping(path = "/tours")
     public String tourList(ModelMap modelMap) {
@@ -52,5 +60,19 @@ public class TourController {
     }
 
 
-}
+    @GetMapping(path = "/admin/add-tour")
+    String showCreateTourForm(ModelMap modelMap) {
+        modelMap.addAttribute("emptyTour", new Tour());
+        modelMap.addAttribute("cities", cityRepository.findAll());
+        return "tour-create";
+    }
 
+    @PostMapping (path = "/admin/save")
+    String handleNewTour(@ModelAttribute("emptyTour") Tour tour) {
+        log.info("Handled new tour: " + tour);
+        tourService.calculateDuration(tour);
+        tourRepository.save(tour);
+        return "redirect:/admin/panel";
+    }
+
+}

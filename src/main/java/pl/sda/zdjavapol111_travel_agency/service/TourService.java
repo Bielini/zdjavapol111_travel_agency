@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
-
+import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -27,4 +27,6 @@ public interface TourService {
     List<Tour> getToursByDurationTime(Integer duration);
 
     List<Tour> filterTours(String searchField, String filter);
+
+    void calculateDuration(Tour tour);
 }
