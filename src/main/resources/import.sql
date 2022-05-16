@@ -1,9 +1,14 @@
 insert into continent (id, name) values (1, 'Europa');
 
-INSERT INTO COUNTRY (ID, NAME,continents_id) VALUES (1, 'Hiszpania',1);
-INSERT INTO COUNTRY (ID, NAME,continents_id) VALUES (2, 'Grecja',1);
-INSERT INTO COUNTRY (ID, NAME,continents_id) VALUES (3, 'Polska',1);
-INSERT INTO COUNTRY (ID, NAME,continents_id) VALUES (4, 'Turcja',1);
+INSERT INTO COUNTRY (ID, NAME) VALUES (1, 'Hiszpania');
+INSERT INTO COUNTRY (ID, NAME) VALUES (2, 'Grecja');
+INSERT INTO COUNTRY (ID, NAME) VALUES (3, 'Polska');
+INSERT INTO COUNTRY (ID, NAME) VALUES (4, 'Turcja');
+
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (1,1);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (1,2);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (1,3);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (1,4);
 
 insert into city (id, name, country_id) values (1, 'Malaga', 1);
 insert into city (id, name, country_id) values (2, 'Ateny', 2);
@@ -19,32 +24,44 @@ insert into user (id, username, password) values(1, 'admin', '$2a$10$csIVj5k8CB7
 insert into user_role (user_id, role_id) values(1,1);
 
 insert into continent (id, name) values (2, 'Azja');
---
-insert into country (id, name,continents_id) values (5, 'Malediwy',2);
-insert into country (id, name,continents_id) values (6, 'Filipiny',2);
-insert into country (id, name,continents_id) values (7, 'Armenia',2);
-insert into country (id, name,continents_id) values (8, 'Cypr',2);
 
+insert into country (id, name) values (5, 'Malediwy');
+insert into country (id, name) values (6, 'Filipiny');
+insert into country (id, name) values (7, 'Armenia');
+insert into country (id, name) values (8, 'Cypr');
+
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (2,5);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (2,6);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (2,7);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (2,8);
 
 insert into city (id, name, country_id) values (5, 'Male', 5);
-insert into city (id, name, country_id) values (6, 'Manila', 5);
+insert into city (id, name, country_id) values (6, 'Manila', 6);
 insert into city (id, name, country_id) values (7, 'Yerevan', 7);
 insert into city (id, name, country_id) values (8, 'Larnaka', 8);
 
 
 insert into continent (id, name) values (3, 'Afryka');
 
-insert into country (id, name,continents_id) values (9, 'Tunezja',3);
-insert into country (id, name,continents_id) values (10, 'Egipt',3);
-insert into country (id, name,continents_id) values (11, 'Maroko',3);
-insert into country (id, name,continents_id) values (12, 'Madagaskar',3);
+insert into country (id, name) values (9, 'Tunezja');
+insert into country (id, name) values (10, 'Egipt');
+insert into country (id, name) values (11, 'Maroko');
+insert into country (id, name) values (12, 'Madagaskar');
 
-
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (3,9);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (3,10);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (3,11);
+INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (3,12);
 
 insert into city (id, name, country_id) values (9, 'Tunis', 9);
-insert into city (id, name, country_id) values (10, 'Kair', 9);
+insert into city (id, name, country_id) values (10, 'Kair', 10);
 insert into city (id, name, country_id) values (11, 'Marrakesz', 11);
 insert into city (id, name, country_id) values (12, 'Ambanja', 12);
+
+-- insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (8, 3, 9, 3, 2500, 1500, 1, 4, 0);
+-- insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (9, 3, 10, 14, 9000, 4000, 0, 2, 1);
+-- insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (10, 3, 11, 7, 4000, 3000, 0, 2, 2);
+-- insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (11, 3, 12, 7, 3000, 2000, 1, 6, 0);
 
 
 insert into hotel (id, name, standard, description, city_id) values (1, 'Gran Hotel Miramar GL', 5, 'Ten obiekt jest położony 1 minutę spacerem od plaży. Luksusowy obiekt Gran Hotel Miramar GL mieści się w zabytkowym budynku z XX wieku, który jest położony w Maladze, 10 metrów od plaży La Malagueta. Ten nadmorski hotel zapewnia centrum spa w sezonie.', 1);
@@ -73,8 +90,7 @@ insert into airport (id, name, city_id) values (10, 'Cairo International Airport
 insert into airport (id, name, city_id) values (11, 'Menara International Airport',11);
 insert into airport (id, name, city_id) values (12, 'Ivato Airport',12);
 
-insert into tour ( origin_city_id, origin_airport_id, destination_city_id, destination_airport_id, destination_hotel_id, start_date, end_date, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values ( 3, 3, 1, 1, 1, '2022-06-14', '2022-06-21', 7, 3500, 3000, 0, 10, 10);
-insert into tour ( origin_city_id, origin_airport_id, destination_city_id, destination_airport_id, destination_hotel_id, start_date, end_date, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values ( 3, 3, 1, 1, 1, '2022-06-14', '2022-06-21', 7, 3500, 3000, 0, 10, 10);
+insert into tour (id, origin_city_id, origin_airport_id, destination_city_id, destination_airport_id, destination_hotel_id, start_date, end_date, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (1, 3, 3, 1, 1, 1, '2022-06-14', '2022-06-21', 7, 3500, 3000, 0, 10, 10);
 
 
 --insert into role (id, name) values(1, 'ADMIN');
