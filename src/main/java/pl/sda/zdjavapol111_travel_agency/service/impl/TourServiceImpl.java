@@ -27,7 +27,7 @@ public class TourServiceImpl implements TourService {
     @Override
     public void calculateDuration(Tour tour) {
         try {
-            tour.setDurationTime(subtractDates(tour.getStartDate(), tour.getEndDate()));
+            tour.setDurationTime(subtractDates(tour.getStartDate().toString(), tour.getEndDate().toString()));
         } catch (ParseException e) {
             e.printStackTrace();
         }

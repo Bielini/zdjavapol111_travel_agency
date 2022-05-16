@@ -2,7 +2,6 @@ package pl.sda.zdjavapol111_travel_agency.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.type.BigDecimalType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.service.TourPurchaseService;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 
 @Slf4j
@@ -30,6 +28,7 @@ public class TourPurchaseController {
     private BigDecimal tourvalue;
 
 
+    @Transactional
     @GetMapping(path = "/buy_tour/{id}")
     public String showOrderForm(@PathVariable Long id, ModelMap modelMap) {
         tour = tourPurchaseService.getById(id);
@@ -39,8 +38,8 @@ public class TourPurchaseController {
         modelMap.addAttribute("destinationcity", tourPurchaseService.getCityNameById(tour.getDestinationCity().getId()));
         modelMap.addAttribute("destinationairport", tourPurchaseService.getAirportNameById(tour.getDestinationAirport().getId()));
         modelMap.addAttribute("destinationhotel", tourPurchaseService.getHotelNameById(tour.getDestinationHotel().getId()));
-        modelMap.addAttribute("datefrom", tourPurchaseService.getDateFormById(id));
-        modelMap.addAttribute("dateto",tourPurchaseService.getDateToById(id));
+        modelMap.addAttribute("datefrom", tourPurchaseService.getStartDateById(id));
+        modelMap.addAttribute("dateto",tourPurchaseService.getEndDateById(id));
         modelMap.addAttribute("adultseats", tourPurchaseService.getAdultSeatsById(id));
         modelMap.addAttribute("minorSeats",tourPurchaseService.getMinorSeatsById(id));
         modelMap.addAttribute("adultsprice",tourPurchaseService.getAdultPriceById(id));
@@ -78,8 +77,8 @@ public class TourPurchaseController {
         modelMap.addAttribute("destinationcity", tourPurchaseService.getCityNameById(tour.getDestinationCity().getId()));
         modelMap.addAttribute("destinationairport", tourPurchaseService.getAirportNameById(tour.getDestinationAirport().getId()));
         modelMap.addAttribute("destinationhotel", tourPurchaseService.getHotelNameById(tour.getDestinationHotel().getId()));
-        modelMap.addAttribute("datefrom", tourPurchaseService.getDateFormById(tour.getId()));
-        modelMap.addAttribute("dateto",tourPurchaseService.getDateToById(tour.getId()));
+        modelMap.addAttribute("datefrom", tourPurchaseService.getStartDateById(tour.getId()));
+        modelMap.addAttribute("dateto",tourPurchaseService.getEndDateById(tour.getId()));
         modelMap.addAttribute("adultseats", tourPurchaseService.getAdultSeatsById(tour.getId()));
         modelMap.addAttribute("minorSeats",tourPurchaseService.getMinorSeatsById(tour.getId()));
         modelMap.addAttribute("adultsprice",tourPurchaseService.getAdultPriceById(tour.getId()));

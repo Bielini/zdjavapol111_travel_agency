@@ -1,13 +1,9 @@
 package pl.sda.zdjavapol111_travel_agency.service;
 
-import pl.sda.zdjavapol111_travel_agency.model.BoughtTour;
-import pl.sda.zdjavapol111_travel_agency.model.City;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 public interface TourPurchaseService {
 
@@ -19,9 +15,9 @@ public interface TourPurchaseService {
 
     String getHotelNameById(Integer id);
 
-    LocalDate getDateFormById(Long id);
+    LocalDate getStartDateById(Long id);
 
-    LocalDate getDateToById(Long id);
+    LocalDate getEndDateById(Long id);
 
     Integer getAdultSeatsById(Long id);
 

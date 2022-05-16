@@ -52,13 +52,13 @@ public class TourPurchaseService implements pl.sda.zdjavapol111_travel_agency.se
     }
 
     @Override
-    public LocalDate getDateFormById(Long id) {
-        return tourRepository.getById(id).getDateFrom();
+    public LocalDate getStartDateById(Long id) {
+        return tourRepository.getById(id).getStartDate();
     }
 
     @Override
-    public LocalDate getDateToById(Long id) {
-        return tourRepository.getById(id).getDateTo();
+    public LocalDate getEndDateById(Long id) {
+        return tourRepository.getById(id).getEndDate();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class TourPurchaseService implements pl.sda.zdjavapol111_travel_agency.se
 
     @Override
     public BigDecimal getEndPriceById(Long id) {
-        return null;
+        throw  new UnsupportedOperationException();
     }
 
 
