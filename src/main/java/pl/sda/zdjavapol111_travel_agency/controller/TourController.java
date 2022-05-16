@@ -27,20 +27,23 @@ import java.util.stream.Collectors;
 @Controller
 public class TourController {
 
-    @Autowired
+
     private TourService tourService;
 
     private List<Tour> filteredTours;
 
-    @Autowired
-    CityRepository cityRepository;
 
-    @Autowired
-    TourRepository tourRepository;
+    private CityRepository cityRepository;
 
 
-    public TourController() {
+     private TourRepository tourRepository;
+
+
+    public TourController(TourService tourService, CityRepository cityRepository, TourRepository tourRepository) {
+        this.tourService = tourService;
         this.filteredTours = tourService.getAllTours();
+        this.cityRepository = cityRepository;
+        this.tourRepository = tourRepository;
     }
 
     @GetMapping(path = "/tours")
