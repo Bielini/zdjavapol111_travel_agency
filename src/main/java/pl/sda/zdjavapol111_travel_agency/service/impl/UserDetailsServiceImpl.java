@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.sda.zdjavapol111_travel_agency.model.User;
 import pl.sda.zdjavapol111_travel_agency.repository.UserRepository;
-
 import java.util.stream.Collectors;
 
 @Service

@@ -35,5 +35,4 @@ public class Tour {
 
     private Integer minorSeats;
 
-
 }

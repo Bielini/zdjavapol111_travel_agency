@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
+
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -25,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable() //do usunięcia na koniec
                 .authorizeRequests()
-                .antMatchers("/login", "/h2-console/**", "/registration", "/register", "/travels-main")
+                .antMatchers("/login", "/h2-console/**", "/registration", "/register", "/tours/**")
                 .permitAll()
                 .antMatchers("/admin/**")
                 .hasAnyRole("ROLE_ADMIN")
@@ -45,19 +46,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable(); //do usunięcia na koniec
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
-
-        auth.authenticationProvider(daoAuthenticationProvider);
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return  new BCryptPasswordEncoder();
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+//
+//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+//        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+//        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+//
+//        auth.authenticationProvider(daoAuthenticationProvider);
+//    }
+//
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+//        return  new BCryptPasswordEncoder();
+//    }
 }
