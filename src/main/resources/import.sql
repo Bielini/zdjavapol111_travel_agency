@@ -15,13 +15,6 @@ insert into city (id, name, country_id) values (2, 'Ateny', 2);
 insert into city (id, name, country_id) values (3, 'Warszawa', 3);
 insert into city (id, name, country_id) values (4, 'Ankara', 4);
 
-insert into tour (id, origin_city_id, origin_airport_id, destination_city_id, destination_airport_id, destination_hotel_id, date_from, date_to, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (1, 3, 3, 1, 1, 1, '2022-06-14', '2022-06-21', 7, 3500, 3000, 0, 10, 10);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (2, 3, 2, 14, 4200, 3000, 1, 2, 0);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 3, 4, 7, 5000, 3500, 0, 2, 1);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (4, 3, 5, 14, 6500, 3000, 1, 10, 0);
---insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 2, 14, 4200, 3000, 1, 2, 0);
---insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 2, 14, 4200, 3000, 1, 2, 0);
---insert into tour(origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (3, 4, 7, 5000, 3500, 0, 2, 1);
 
 insert into role (id, name) values(1, 'ADMIN');
 insert into role (id, name) values(2, 'CUSTOMER');
@@ -65,10 +58,10 @@ insert into city (id, name, country_id) values (10, 'Kair', 10);
 insert into city (id, name, country_id) values (11, 'Marrakesz', 11);
 insert into city (id, name, country_id) values (12, 'Ambanja', 12);
 
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (8, 3, 9, 3, 2500, 1500, 1, 4, 0);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (9, 3, 10, 14, 9000, 4000, 0, 2, 1);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (10, 3, 11, 7, 4000, 3000, 0, 2, 2);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (11, 3, 12, 7, 3000, 2000, 1, 6, 0);
+-- insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (8, 3, 9, 3, 2500, 1500, 1, 4, 0);
+-- insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (9, 3, 10, 14, 9000, 4000, 0, 2, 1);
+-- insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (10, 3, 11, 7, 4000, 3000, 0, 2, 2);
+-- insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (11, 3, 12, 7, 3000, 2000, 1, 6, 0);
 
 
 insert into hotel (id, name, standard, description, city_id) values (1, 'Gran Hotel Miramar GL', 5, 'Ten obiekt jest położony 1 minutę spacerem od plaży. Luksusowy obiekt Gran Hotel Miramar GL mieści się w zabytkowym budynku z XX wieku, który jest położony w Maladze, 10 metrów od plaży La Malagueta. Ten nadmorski hotel zapewnia centrum spa w sezonie.', 1);
