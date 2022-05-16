@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
+import pl.sda.zdjavapol111_travel_agency.service.CityService;
 import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,18 +33,13 @@ public class TourController {
 
     private List<Tour> filteredTours;
 
-
-    private CityRepository cityRepository;
-
-
-     private TourRepository tourRepository;
+    private CityService cityService;
 
 
-    public TourController(TourService tourService, CityRepository cityRepository, TourRepository tourRepository) {
+    public TourController(TourService tourService, CityService cityService) {
         this.tourService = tourService;
         this.filteredTours = tourService.getAllTours();
-        this.cityRepository = cityRepository;
-        this.tourRepository = tourRepository;
+        this.cityService = cityService;
     }
 
     @GetMapping(path = "/tours")
@@ -66,7 +62,7 @@ public class TourController {
     @GetMapping(path = "/admin/add-tour")
     String showCreateTourForm(ModelMap modelMap) {
         modelMap.addAttribute("emptyTour", new Tour());
-        modelMap.addAttribute("cities", cityRepository.findAll());
+        modelMap.addAttribute("cities", cityService.findAll());
         return "tour-create";
     }
 
@@ -74,7 +70,7 @@ public class TourController {
     String handleNewTour(@ModelAttribute("emptyTour") Tour tour) {
         log.info("Handled new tour: " + tour);
         tourService.calculateDuration(tour);
-        tourRepository.save(tour);
+        tourService.save(tour);
 
         return "redirect:/admin/panel";
     }
