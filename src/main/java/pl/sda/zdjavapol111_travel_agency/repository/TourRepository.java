@@ -20,4 +20,3 @@ public interface TourRepository extends JpaRepository <Tour, Long> {
     List<Tour> findAllToursByOriginCity(@Param(value = "name")String name);
 
 }
-
