@@ -75,6 +75,7 @@ public class TourController {
         log.info("Handled new tour: " + tour);
         tourService.calculateDuration(tour);
         tourRepository.save(tour);
+
         return "redirect:/admin/panel";
     }
 

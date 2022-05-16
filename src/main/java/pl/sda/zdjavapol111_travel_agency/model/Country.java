@@ -18,13 +18,12 @@ public class Country {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Continent> continents;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Continent continents;
 
     @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "country_city",
+            joinColumns = @JoinColumn(name = "country_id"),
+            inverseJoinColumns = @JoinColumn(name = "city_id"))
     private List<City> cities;
-
-
-
-
 }

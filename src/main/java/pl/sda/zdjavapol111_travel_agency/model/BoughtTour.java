@@ -16,11 +16,17 @@ public class BoughtTour {
     private Integer id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-
     private BigDecimal price;
+
+    private Integer adultSeats;
+
+    private Integer minorSeats;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Tour tour;
+
+
 }

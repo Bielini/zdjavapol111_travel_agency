@@ -35,7 +35,7 @@ insert into continent (id, name) values (2, 'Azja');
 insert into country (id, name) values (5, 'Malediwy');
 insert into country (id, name) values (6, 'Filipiny');
 insert into country (id, name) values (7, 'Armenia');
-insert into country (id, name values (8, 'Cypr');
+insert into country (id, name) values (8, 'Cypr');
 
 INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (2,5);
 INSERT INTO CONTINENT_COUNTRIES (CONTINENT_ID, COUNTRIES_ID) VALUES (2,6);
@@ -47,10 +47,6 @@ insert into city (id, name, country_id) values (6, 'Manila', 6);
 insert into city (id, name, country_id) values (7, 'Yerevan', 7);
 insert into city (id, name, country_id) values (8, 'Larnaka', 8);
 
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (4, 3, 5, 14, 6500, 3000, 1, 10, 0);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (5, 3, 6, 14, 8200, 4000, 0, 2, 0);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (6, 3, 7, 7, 3700, 3000, 0, 2, 1);
-insert into tour (id, origin_city_id, destination_city_id, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values (7, 3, 8, 7, 3300, 2800, 1, 4, 0);
 
 insert into continent (id, name) values (3, 'Afryka');
 

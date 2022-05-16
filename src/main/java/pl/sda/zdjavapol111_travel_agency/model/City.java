@@ -20,7 +20,6 @@ public class City {
     @OneToOne(fetch = FetchType.LAZY)
     private Country country;
 
-
     @OneToMany(fetch = FetchType.LAZY)
     private List<Hotel> hotels;
 

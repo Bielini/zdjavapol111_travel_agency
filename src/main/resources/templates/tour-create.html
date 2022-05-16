@@ -7,21 +7,21 @@
 <body>
     <form method="post" th:action="@{/admin/save}" th:object="${emptyTour}">
 
-<!--        <label>-->
-<!--            Start podróży:-->
-<!--                <select th:field="*{destinationCity}">-->
-<!--                    <option th:each="city : ${cities}" th:value="${city}"-->
-<!--                            th:text="${city.getName()}"></option>-->
-<!--                </select>-->
-<!--        </label>-->
-<!--        <br>-->
-<!--        <label>-->
-<!--            Cel podróży:-->
-<!--            <select th:field="*{originCity}">-->
-<!--                <option th:each="city : ${cities}" th:value="${city}"-->
-<!--                        th:text="${city.getName()}"></option>-->
-<!--            </select>-->
-<!--        </label>-->
+        <label>
+            Start podróży:
+                <select th:field="*{destinationCity}">
+                    <option th:each="city : ${cities}" th:value="${city}"
+                            th:text="${city.getName()}"></option>
+                </select>
+        </label>
+        <br>
+        <label>
+            Cel podróży:
+            <select th:field="*{originCity}">
+                <option th:each="city : ${cities}" th:value="${city}"
+                        th:text="${city.getName()}"></option>
+            </select>
+        </label>
         <label>
             Data rozpoczęcia:
             <input type="date" th:field="*{startDate}">

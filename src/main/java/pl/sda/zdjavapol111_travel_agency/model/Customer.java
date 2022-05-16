@@ -1,25 +1,29 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Role {
+
+public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
 
-    @Override
-    public String toString() {
-        return name;
-    }
+    private String surname;
+
+    private String email;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<BoughtTour> boughtTours;
+
 }
