@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodawanie nowego administratora</title>
+</head>
+<body>
+
+<form method="post" th:action="@{/admin/save-admin}" th:object="${emptyUser}">
+
+    <label>
+        Nazwa użytkownika:
+        <input type="text" th:field="*{username}">
+    </label>
+
+    <label>
+        Hasło:
+        <input type="password" th:field="*{password}">
+    </label>
+
+    <button type="submit">Dodaj administratora</button>
+
+</form>
+
+</body>
+</html>
