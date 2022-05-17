@@ -3,7 +3,11 @@ package pl.sda.zdjavapol111_travel_agency.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sda.zdjavapol111_travel_agency.model.Airport;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
+import pl.sda.zdjavapol111_travel_agency.repository.AirportRepository;
+import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
+import pl.sda.zdjavapol111_travel_agency.repository.HotelRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
 import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
@@ -23,8 +27,16 @@ public class TourServiceImpl implements TourService {
     @Autowired
     TourRepository tourRepository;
 
+    @Autowired
+    CityRepository cityRepository;
 
-    @Override
+    @Autowired
+    AirportRepository airportRepository;
+
+    @Autowired
+    HotelRepository hotelRepository;
+
+
     public void calculateDuration(Tour tour) {
         try {
             tour.setDurationTime(subtractDates(tour.getStartDate().toString(), tour.getEndDate().toString()));
@@ -32,6 +44,27 @@ public class TourServiceImpl implements TourService {
             e.printStackTrace();
         }
     }
+
+    public void setDestinationCity(Tour tour, String destinationCityName) {
+        tour.setDestinationCity(cityRepository.findByName(destinationCityName));
+    }
+
+    public void setOriginCity(Tour tour, String originCityName) {
+        tour.setOriginCity(cityRepository.findByName(originCityName));
+    }
+
+    public void setDestinationAirport(Tour tour, String destinationAirportName) {
+        tour.setDestinationAirport(airportRepository.findByName(destinationAirportName));
+    }
+
+    public void setOriginAirport(Tour tour, String originAirportName) {
+        tour.setOriginAirport(airportRepository.findByName(originAirportName));
+    }
+
+    public void setHotel(Tour tour, String hotelName) {
+        tour.setDestinationHotel(hotelRepository.findByName(hotelName));
+    }
+
 
     private static Integer subtractDates(String stringStartDate, String stringEndDate) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -44,6 +77,19 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public void save(Tour tour) {
+        tourRepository.save(tour);
+    }
+
+    @Override
+    public void save(Tour tour, String destinationCityName, String originCityName,
+                     String originAirportName, String destinationAirportName,
+                     String hotelName) {
+        this.calculateDuration(tour);
+        this.setDestinationCity(tour, destinationCityName);
+        this.setOriginCity(tour, originCityName);
+        this.setOriginAirport(tour, originAirportName);
+        this.setDestinationAirport(tour, destinationAirportName);
+        this.setHotel(tour, hotelName);
         tourRepository.save(tour);
     }
 

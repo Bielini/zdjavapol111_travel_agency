@@ -12,6 +12,10 @@ public interface TourService {
 
     void save(Tour tour);
 
+    void save(Tour tour, String destinationCityName, String originCityName,
+              String originAirportName, String destinationAirportName,
+              String hotelName);
+
     List<Tour> getAllTours();
 
     void deleteById(Integer id);
@@ -28,5 +32,4 @@ public interface TourService {
 
     List<Tour> filterTours(String searchField, String filter);
 
-    void calculateDuration(Tour tour);
 }
