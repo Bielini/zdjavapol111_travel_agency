@@ -1,11 +1,13 @@
 package pl.sda.zdjavapol111_travel_agency.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -18,5 +20,11 @@ public interface TourRepository extends JpaRepository <Tour, Long> {
     List<Tour> findAllToursByDestinationCity(@Param(value = "name")String name);
     @Query(value = "SELECT t FROM Tour t WHERE t.originCity.name = :name")
     List<Tour> findAllToursByOriginCity(@Param(value = "name")String name);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Tour t SET t.promotion = :prom WHERE t.id = :id")
+    void updatePassById(@Param(value = "id") Long id, @Param(value = "prom") Boolean newProm);
+
 
 }

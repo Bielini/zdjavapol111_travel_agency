@@ -37,7 +37,7 @@ public class TourServiceImpl implements TourService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = dateFormat.parse(stringStartDate);
         Date endDate = dateFormat.parse(stringEndDate);
-        Double doubleResultOfSubtract = ((endDate.getTime() - startDate.getTime())/86400000.0);
+        Double doubleResultOfSubtract = ((endDate.getTime() - startDate.getTime()) / 86400000.0);
         return doubleResultOfSubtract.intValue();
     }
 
@@ -84,15 +84,21 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
+    public void updatePromById(Integer id, Boolean newProm) {
+        tourRepository.updatePassById(id.longValue(),newProm);
+    }
+
+    @Override
     public List<Tour> getToursByDestCity(String name) {
         return tourRepository.findAllToursByDestinationCity(name);
     }
+
     @Override
     public List<Tour> getToursByOriginCity(String name) {
         return tourRepository.findAllToursByOriginCity(name);
     }
 
-   public List<Tour> filterTours(String searchField, String filter) {
+    public List<Tour> filterTours(String searchField, String filter) {
 
         switch (filter) {
             case "destinationCity":
@@ -100,13 +106,25 @@ public class TourServiceImpl implements TourService {
             case "originCity":
                 return tourRepository.findAllToursByOriginCity(searchField);
             case "durationTime":
-                try{
+                try {
                     return tourRepository.findAllToursByDurationTime(Integer.parseInt(searchField));
-                }catch (IllegalArgumentException e){
-                    log.error("Thrown:"+e.getMessage());
+                } catch (IllegalArgumentException e) {
+                    log.error("Thrown:" + e.getMessage());
                 }
         }
         return Collections.emptyList();
+    }
+
+    public String getActiveFilter(String searchField, String filter){
+        switch (filter) {
+            case "destinationCity":
+                return "Cel wycieczki: "+ searchField;
+            case "originCity":
+                return "Miasto wyjazdu: "+ searchField;
+            case "durationTime":
+                return "Czas trwania co najmniej: "+ searchField+" dni";
+        }
+        return "";
     }
 
 }
