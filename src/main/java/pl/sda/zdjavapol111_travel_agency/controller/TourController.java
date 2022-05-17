@@ -12,9 +12,7 @@ import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.HotelRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
-import pl.sda.zdjavapol111_travel_agency.service.AirportService;
-import pl.sda.zdjavapol111_travel_agency.service.CityService;
-import pl.sda.zdjavapol111_travel_agency.service.TourService;
+import pl.sda.zdjavapol111_travel_agency.service.*;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
@@ -39,16 +37,16 @@ public class TourController {
 
     private AirportService airportService;
 
-    private HotelRepository hotelRepository;
+    private HotelService hotelService;
 
 
     public TourController(TourService tourService, CityService cityService,
-                          AirportService airportService, HotelRepository hotelRepository) {
+                          AirportService airportService, HotelService hotelService) {
         this.tourService = tourService;
         this.filteredTours = tourService.getAllTours();
         this.cityService = cityService;
         this.airportService = airportService;
-        this.hotelRepository = hotelRepository;
+        this.hotelService = hotelService;
     }
 
     @GetMapping(path = "/tours")
@@ -78,7 +76,7 @@ public class TourController {
         modelMap.addAttribute("airports", airportService.findAll());
         modelMap.addAttribute("originAirportName", "");
         modelMap.addAttribute("destinationAirportName", "");
-        modelMap.addAttribute("hotels", hotelRepository.findAll());
+        modelMap.addAttribute("hotels", hotelService.findAll());
         modelMap.addAttribute("hotelName", "");
         return "tour-create";
     }
