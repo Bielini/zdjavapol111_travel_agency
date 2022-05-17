@@ -6,5 +6,5 @@ import pl.sda.zdjavapol111_travel_agency.model.City;
 
 @Repository
 public interface CityRepository extends JpaRepository<City, Integer> {
-
+    City findByName(String name);
 }

@@ -6,5 +6,5 @@ import pl.sda.zdjavapol111_travel_agency.model.Airport;
 
 @Repository
 public interface AirportRepository extends JpaRepository<Airport, Integer> {
-
+    Airport findByName(String name);
 }
