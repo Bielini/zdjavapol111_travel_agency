@@ -5,31 +5,57 @@
     <title>Nowa wycieczka</title>
 </head>
 <body>
-    <form method="post" th:action="@{/admin/save}" th:object="${emptyTour}">
-
-        <label>
-            Start podróży:
-                <select th:field="*{destinationCity}">
-                    <option th:each="city : ${cities}" th:value="${city}"
-                            th:text="${city.getName()}"></option>
-                </select>
-        </label>
-        <br>
-        <label>
-            Cel podróży:
-            <select th:field="*{originCity}">
-                <option th:each="city : ${cities}" th:value="${city}"
-                        th:text="${city.getName()}"></option>
-            </select>
-        </label>
+    <form method="post" th:action="@{/admin/save-tour}" th:object="${emptyTour}" >
         <label>
             Data rozpoczęcia:
             <input type="date" th:field="*{startDate}">
         </label>
+
         <label>
             Data zakończenia:
             <input type="date" th:field="*{endDate}">
         </label>
+
+        <br>
+
+        <label>
+            Start podróży:
+            <select name="originCityName" th:object="${originCityName}">
+                    <option th:each="city : ${cities}"
+                    th:text="${city.getName()}"
+                    th:value="${city.getName()}"/>
+                </select>
+        </label>
+
+        <label>
+            Cel podróży:
+            <select name="destinationCityName" th:object="${destinationCityName}">
+                <option th:each="city : ${cities}"
+                th:text="${city.getName()}"
+                th:value="${city.getName()}"/>
+            </select>
+        </label>
+
+        <br>
+
+        <label>
+            Lotnisko - start:
+            <select name="originAirportName" th:object="${originAirportName}">
+                <option th:each="airport : ${airports}"
+                        th:text="${airport.getName()}"
+                        th:value="${airport.getName()}"/>
+            </select>
+        </label>
+
+        <label>
+            Lotnisko - cel:
+            <select name="destinationAirportName" th:object="${destinationAirportName}">
+                <option th:each="airport : ${airports}"
+                        th:text="${airport.getName()}"
+                        th:value="${airport.getName()}"/>
+            </select>
+        </label>
+
 
         <button type="submit">Dodaj wycieczkę</button>
     </form>
