@@ -20,11 +20,11 @@ public interface TourService {
 
     List<Tour> get2PromotedTours();
 
+    List<Tour> getToursByDurationTime(Integer duration);
+
     List<Tour> getToursByDestCity(String name);
 
     List<Tour> getToursByOriginCity(String name);
-
-    List<Tour> getToursByDurationTime(Integer duration);
 
     List<Tour> filterTours(String searchField, String filter);
 

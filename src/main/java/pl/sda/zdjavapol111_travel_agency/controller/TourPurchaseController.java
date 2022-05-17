@@ -33,17 +33,6 @@ public class TourPurchaseController {
     public String showOrderForm(@PathVariable Long id, ModelMap modelMap) {
         tour = tourPurchaseService.getById(id);
         modelMap.addAttribute("tour", tour);
-        modelMap.addAttribute("origincityname", tourPurchaseService.getCityNameById(tour.getOriginCity().getId()));
-        modelMap.addAttribute("originairport", tourPurchaseService.getAirportNameById(tour.getOriginAirport().getId()));
-        modelMap.addAttribute("destinationcity", tourPurchaseService.getCityNameById(tour.getDestinationCity().getId()));
-        modelMap.addAttribute("destinationairport", tourPurchaseService.getAirportNameById(tour.getDestinationAirport().getId()));
-        modelMap.addAttribute("destinationhotel", tourPurchaseService.getHotelNameById(tour.getDestinationHotel().getId()));
-        modelMap.addAttribute("datefrom", tourPurchaseService.getStartDateById(id));
-        modelMap.addAttribute("dateto",tourPurchaseService.getEndDateById(id));
-        modelMap.addAttribute("adultseats", tourPurchaseService.getAdultSeatsById(id));
-        modelMap.addAttribute("minorSeats",tourPurchaseService.getMinorSeatsById(id));
-        modelMap.addAttribute("adultsprice",tourPurchaseService.getAdultPriceById(id));
-        modelMap.addAttribute("minorprice",tourPurchaseService.getMinorPriceById(id));
         modelMap.addAttribute("adultamount", adultAmount);
         modelMap.addAttribute("childamount", childAmount);
 
@@ -63,26 +52,15 @@ public class TourPurchaseController {
 
     @RequestMapping(value = "/buy_tour/{id}")
     public String handlePeopleAmount(@RequestParam("adultamount") Integer adultamount, @RequestParam("childamount") Integer childamount, ModelMap modelMap){
-    this.adultAmount = adultamount;
-    this.childAmount = childamount;
+        this.adultAmount = adultamount;
+        this.childAmount = childamount;
         if(childamount ==0 || childamount == null){
-           tourvalue = tour.getAdultPrice().multiply(new BigDecimal(adultamount));
+            tourvalue = tour.getAdultPrice().multiply(new BigDecimal(adultamount));
         } tourvalueAdult = tour.getAdultPrice().multiply(new BigDecimal(adultamount));
         tourvalue = tourvalueAdult.add(tour.getMinorPrice().multiply(new BigDecimal(childamount)));
 
         modelMap.addAttribute("tourvalue", tourvalue);
         modelMap.addAttribute("tour", tour);
-        modelMap.addAttribute("origincityname", tourPurchaseService.getCityNameById(tour.getOriginCity().getId()));
-        modelMap.addAttribute("originairport", tourPurchaseService.getAirportNameById(tour.getOriginAirport().getId()));
-        modelMap.addAttribute("destinationcity", tourPurchaseService.getCityNameById(tour.getDestinationCity().getId()));
-        modelMap.addAttribute("destinationairport", tourPurchaseService.getAirportNameById(tour.getDestinationAirport().getId()));
-        modelMap.addAttribute("destinationhotel", tourPurchaseService.getHotelNameById(tour.getDestinationHotel().getId()));
-        modelMap.addAttribute("datefrom", tourPurchaseService.getStartDateById(tour.getId()));
-        modelMap.addAttribute("dateto",tourPurchaseService.getEndDateById(tour.getId()));
-        modelMap.addAttribute("adultseats", tourPurchaseService.getAdultSeatsById(tour.getId()));
-        modelMap.addAttribute("minorSeats",tourPurchaseService.getMinorSeatsById(tour.getId()));
-        modelMap.addAttribute("adultsprice",tourPurchaseService.getAdultPriceById(tour.getId()));
-        modelMap.addAttribute("minorprice",tourPurchaseService.getMinorPriceById(tour.getId()));
         modelMap.addAttribute("adultamount", adultAmount);
         modelMap.addAttribute("childamount", childAmount);
         return "tour-purchase";

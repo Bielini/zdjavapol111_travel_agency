@@ -4,12 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
-
     <title>Strona główna</title>
 </head>
 <body>
-
-
 
 
 
@@ -68,13 +65,12 @@
             <td th:text="${tour.promotion}"/>
 
             <td>
-                <a th:href="@{/tour/{id}/(id=${tour.id})}">Więcej...</a>
+                <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
             </td>
 
         </tr>
         </tbody>
     </table>
-
 
 
 
@@ -119,7 +115,7 @@
             <td th:text="${tour.promotion}"/>
 
             <td>
-                <a th:href="@{/tour/{id}/(id=${tour.id})}">Więcej...</a>
+                <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
             </td>
 
         </tr>
@@ -159,7 +155,5 @@
     function changeIntoDate(){
         document.getElementById('searchField').type= "date";
     }
-
-
 
 </script>
