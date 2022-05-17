@@ -7,6 +7,7 @@ import pl.sda.zdjavapol111_travel_agency.model.Airport;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.repository.AirportRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
+import pl.sda.zdjavapol111_travel_agency.repository.HotelRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
 import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
@@ -31,6 +32,9 @@ public class TourServiceImpl implements TourService {
 
     @Autowired
     AirportRepository airportRepository;
+
+    @Autowired
+    HotelRepository hotelRepository;
 
 
     public void calculateDuration(Tour tour) {
@@ -57,6 +61,10 @@ public class TourServiceImpl implements TourService {
         tour.setOriginAirport(airportRepository.findByName(originAirportName));
     }
 
+    public void setHotel(Tour tour, String hotelName) {
+        tour.setDestinationHotel(hotelRepository.findByName(hotelName));
+    }
+
 
     private static Integer subtractDates(String stringStartDate, String stringEndDate) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -74,12 +82,14 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public void save(Tour tour, String destinationCityName, String originCityName,
-                     String originAirportName, String destinationAirportName) {
+                     String originAirportName, String destinationAirportName,
+                     String hotelName) {
         this.calculateDuration(tour);
         this.setDestinationCity(tour, destinationCityName);
         this.setOriginCity(tour, originCityName);
         this.setOriginAirport(tour, originAirportName);
         this.setDestinationAirport(tour, destinationAirportName);
+        this.setHotel(tour, hotelName);
         tourRepository.save(tour);
     }
 
