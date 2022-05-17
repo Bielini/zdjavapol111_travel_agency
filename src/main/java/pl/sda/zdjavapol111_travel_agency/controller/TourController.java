@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
+import pl.sda.zdjavapol111_travel_agency.repository.HotelRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
 import pl.sda.zdjavapol111_travel_agency.service.AirportService;
 import pl.sda.zdjavapol111_travel_agency.service.CityService;
@@ -38,12 +39,16 @@ public class TourController {
 
     private AirportService airportService;
 
+    private HotelRepository hotelRepository;
 
-    public TourController(TourService tourService, CityService cityService, AirportService airportService) {
+
+    public TourController(TourService tourService, CityService cityService,
+                          AirportService airportService, HotelRepository hotelRepository) {
         this.tourService = tourService;
         this.filteredTours = tourService.getAllTours();
         this.cityService = cityService;
         this.airportService = airportService;
+        this.hotelRepository = hotelRepository;
     }
 
     @GetMapping(path = "/tours")
@@ -73,6 +78,8 @@ public class TourController {
         modelMap.addAttribute("airports", airportService.findAll());
         modelMap.addAttribute("originAirportName", "");
         modelMap.addAttribute("destinationAirportName", "");
+        modelMap.addAttribute("hotels", hotelRepository.findAll());
+        modelMap.addAttribute("hotelName", "");
         return "tour-create";
     }
 
@@ -81,9 +88,10 @@ public class TourController {
                          @ModelAttribute("destinationCityName") String destinationCityName,
                          @ModelAttribute("originCityName") String originCityName,
                          @ModelAttribute("originAirportName") String originAirportName,
-                         @ModelAttribute("destinationAirportName") String destinationAirportName) {
+                         @ModelAttribute("destinationAirportName") String destinationAirportName,
+                         @ModelAttribute("hotelName") String hotelName) {
 
-        tourService.save(tour, destinationCityName, originCityName, originAirportName, destinationAirportName);
+        tourService.save(tour, destinationCityName, originCityName, originAirportName, destinationAirportName, hotelName);
 
         log.info("Handled new tour: " + tour);
 

@@ -56,6 +56,53 @@
             </select>
         </label>
 
+        <br>
+
+        <label>
+            Hotel:
+            <select name="hotelName" th:object="${hotelName}">
+                <option th:each="hotel : ${hotels}"
+                        th:text="${hotel.getName()}"
+                        th:value="${hotel.getName()}"/>
+            </select>
+        </label>
+
+        <br>
+
+        <label>
+            Cena za osobę dorosłą:
+            <input type="number" th:field="*{adultPrice}">
+        </label>
+
+        <br>
+
+        <label>
+            Cena za osobę niepełnoletnią:
+            <input type="number" th:field="*{minorPrice}">
+        </label>
+
+        <br>
+
+        <label>
+            Promocja
+            <input type="checkbox" th:field="*{promotion}">
+        </label>
+
+        <br>
+
+        <label>
+            Liczba miejsc dla osób dorosłych:
+            <input type="number" th:field="*{adultSeats}">
+        </label>
+
+        <br>
+
+        <label>
+            Liczba miejsc dla dzieci:
+            <input type="number" th:field="*{minorSeats}">
+        </label>
+
+
 
         <button type="submit">Dodaj wycieczkę</button>
     </form>

@@ -13,7 +13,8 @@ public interface TourService {
     void save(Tour tour);
 
     void save(Tour tour, String destinationCityName, String originCityName,
-              String originAirportName, String destinationAirportName);
+              String originAirportName, String destinationAirportName,
+              String hotelName);
 
     List<Tour> getAllTours();
 
