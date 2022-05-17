@@ -2,18 +2,16 @@ package pl.sda.zdjavapol111_travel_agency.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
 import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
@@ -36,14 +34,11 @@ public class TourController {
     private CityRepository cityRepository;
 
 
-     private TourRepository tourRepository;
-
-
     public TourController(TourService tourService, CityRepository cityRepository, TourRepository tourRepository) {
         this.tourService = tourService;
         this.filteredTours = tourService.getAllTours();
         this.cityRepository = cityRepository;
-        this.tourRepository = tourRepository;
+
     }
 
     @GetMapping(path = "/tours")
@@ -70,13 +65,20 @@ public class TourController {
         return "tour-create";
     }
 
-    @PostMapping (path = "/admin/save")
+    @PostMapping(path = "/admin/save")
     String handleNewTour(@ModelAttribute("emptyTour") Tour tour) {
         log.info("Handled new tour: " + tour);
         tourService.calculateDuration(tour);
-        tourRepository.save(tour);
-
+        tourService.save(tour);
         return "redirect:/admin/panel";
+    }
+
+    @GetMapping(path = "/tours/{id}")
+    public String showTourDescription(@PathVariable Integer id, ModelMap modelMap) {
+        Tour tour = tourService.getById(id);
+        modelMap.addAttribute("tour", tour);
+
+        return "tour-description";
     }
 
 }

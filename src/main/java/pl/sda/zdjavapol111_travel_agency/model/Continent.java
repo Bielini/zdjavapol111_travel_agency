@@ -18,7 +18,7 @@ public class Continent {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Country> countries;
 
 }

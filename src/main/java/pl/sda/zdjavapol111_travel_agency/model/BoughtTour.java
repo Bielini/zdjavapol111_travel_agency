@@ -15,7 +15,6 @@ public class BoughtTour {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     private BigDecimal price;
 
     private Integer adultSeats;
