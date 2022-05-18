@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Edycja wycieczki</title>
@@ -63,63 +63,65 @@
     </tr>
     </tbody>
 </table>
-<table style="width:50%;border-style: double" class="table" b>
-    <thead>Nowa</thead>
-    <tbody>
-    <tr>
-        <td style="text-align:left">Skąd - Kontynent:</td>
-        <td th:text="${oldTour.originCity.country.continents.name}"></td>
-        <td style="text-align:left">Dokąd - Kontynent:</td>
-        <td th:text="${oldTour.destinationCity.country.continents.name}"></td>
-    </tr>
-    <tr>
-        <td style="text-align:left">Skąd - państwo:</td>
-        <td th:text="${oldTour.originCity.country.name}"></td>
-        <td style="text-align:left">Dokąd - państwo:</td>
-        <td th:text="${oldTour.destinationCity.country.name}"></td>
-    </tr>
 
-    <tr>
-        <td style="text-align:left">Skąd - miasto:</td>
-        <td th:text="${oldTour.originCity.name}"></td>
-        <td style="text-align:left">Dokąd - miasto:</td>
-        <td th:text="${oldTour.destinationCity.name}"></td>
-    </tr>
+<form method="post" th:action="@{/admin/tours/{id}/update(id=${oldTour.id})}" th:object="${newTour}">
 
-    <tr>
-        <td style="text-align:left">Skąd - lotnisko:</td>
-        <td th:text="${oldTour.originAirport.name}"></td>
-        <td style="text-align:left">Dokąd - lotnisko:</td>
-        <td th:text="${oldTour.destinationAirport.name}"></td>
-    </tr>
+    <h4>Nowa</h4>
 
-    <tr>
-        <td style="text-align:left">Hotel:</td>
-        <td th:text="${oldTour.destinationHotel.name}"></td>
+    <label>
+        Miejsce wyjazdu:
+        <select name="originCity" >
+            <option selected th:text="${oldTour.originCity.name}"
+                    th:value="${oldTour.originCity}"></option>
+            <option th:each="city : ${cities}"
+                    th:text="${city.getName()}"
+                    th:value="${city}"></option>
+        </select>
+    </label>
 
-    </tr>
-    <tr>
-        <td th:text="${oldTour.destinationHotel.description}"></td>
-    </tr>
-    <tr>
-        <td style="text-align:left">Data - od:</td>
-        <td th:text="${oldTour.endDate}"></td>
-        <td style="text-align:left">Data - do:</td>
-        <td th:text="${oldTour.endDate}"></td>
-    </tr>
-    <tr>
-        <td style="text-align:left">Ilość dostępnych miejsc - dorośli:</td>
-        <td th:text="${oldTour.adultSeats}"></td>
-        <td style="text-align:left">Ilość dostępnych miejsc - dzieci:</td>
-        <td th:text="${oldTour.minorSeats}"></td>
-    </tr>
-    <tr>
-        <td style="text-align:left">Cena per miejsce - dorośli:</td>
-        <td th:text="${oldTour.adultPrice}"></td>
-        <td style="text-align:left">Cena per miejsce - dzieci:</td>
-        <td th:text="${oldTour.minorPrice}"></td>
-    </tr>
-    </tbody>
-</table>
+    <label>
+        Cel wycieczki:
+        <select name="destinationCity">
+            <option selected th:text="${oldTour.destinationCity.name}"
+                    th:value="${oldTour.destinationCity}"></option>
+
+            <option th:each="city : ${cities}"
+                    th:text="${city.getName()}"
+                    th:value="${city}"></option>
+        </select>
+    </label>
+
+    <div class="slidecontainer">
+        <label>
+            Miejsca dorosłych:
+        <input type="range" min="0" max="30" th:value="${oldTour.adultSeats}" name="adultSeats" id="adultsSlider">
+            Liczba: <span id="adultSeats" ></span>
+        </label>
+        </br>
+        <label>
+            Miejsca dziecięce:
+        <input type="range" min="0" max="30" th:value="${oldTour.minorSeats}" name="minorSeats" id="minorSlider">
+            Liczba: <span  id="minorSeats"></span>
+        </label>
+    </div>
+    <button type="submit">Update</button>
+</form>
 </body>
 </html>
+
+<script>
+    const sliderAdults = document.getElementById("adultsSlider");
+    const sliderMinors = document.getElementById("minorSlider");
+    const outputAdults = document.getElementById("adultSeats");
+    const outputMinors = document.getElementById("minorSeats");
+
+    outputAdults.innerHTML = sliderAdults.value;
+    outputMinors.innerHTML = sliderMinors.value;
+
+    sliderAdults.oninput = function() {
+        outputAdults.innerHTML = this.value;
+    }
+    sliderMinors.oninput = function() {
+        outputMinors.innerHTML = this.value;
+    }
+</script>

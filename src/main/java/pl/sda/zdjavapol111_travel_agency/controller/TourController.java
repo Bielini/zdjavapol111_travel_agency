@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
+import pl.sda.zdjavapol111_travel_agency.service.CityService;
 import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class TourController {
 
     private TourService tourService;
 
+    private CityService cityService;
+
     private List<Tour> filteredTours;
 
     private String activeFilter = "";
@@ -25,10 +28,11 @@ public class TourController {
 
 
 
-    public TourController(TourService tourService, CityRepository cityRepository, TourRepository tourRepository) {
+    public TourController(TourService tourService, CityRepository cityRepository, TourRepository tourRepository, CityService cityService) {
         this.tourService = tourService;
         this.filteredTours = tourService.getAllTours();
         this.cityRepository = cityRepository;
+        this.cityService = cityService;
     }
 
     @GetMapping(path = "/tours")
@@ -92,7 +96,19 @@ public class TourController {
     public String showEditTourForm(@PathVariable Integer id,ModelMap modelMap){
         modelMap.addAttribute("oldTour",tourService.getById(id));
         modelMap.addAttribute("newTour", new Tour());
+        modelMap.addAttribute("cities", cityService.findAll());
 
         return "tour-edit";
+    }
+
+    @PostMapping(path = "/admin/tours/{id}/update")
+    public String handleUpdatedTour(
+            @PathVariable() Integer id,
+            @ModelAttribute(name = "originCity") String originCity,
+            @ModelAttribute(name = "adultSeats") Integer adultSeats){
+
+        log.info(id+originCity+adultSeats);
+
+        return "redirect:/admin/tours/{id}/edit";
     }
 }
