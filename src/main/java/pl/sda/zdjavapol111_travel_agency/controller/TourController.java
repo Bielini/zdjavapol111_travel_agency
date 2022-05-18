@@ -6,9 +6,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
+import pl.sda.zdjavapol111_travel_agency.repository.HotelRepository;
 import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
-import pl.sda.zdjavapol111_travel_agency.service.CityService;
-import pl.sda.zdjavapol111_travel_agency.service.TourService;
+import pl.sda.zdjavapol111_travel_agency.service.*;
+
 
 import java.util.List;
 
@@ -24,15 +25,20 @@ public class TourController {
     private List<Tour> filteredTours;
 
     private String activeFilter = "";
-    private CityRepository cityRepository;
+
+    private AirportService airportService;
+
+    private HotelService hotelService;
 
 
-
-    public TourController(TourService tourService, CityRepository cityRepository, TourRepository tourRepository, CityService cityService) {
+    public TourController(TourService tourService, CityService cityService,
+                          AirportService airportService, HotelService hotelService) {
         this.tourService = tourService;
         this.filteredTours = tourService.getAllTours();
-        this.cityRepository = cityRepository;
         this.cityService = cityService;
+        this.airportService = airportService;
+        this.hotelService = hotelService;
+
     }
 
     @GetMapping(path = "/tours")
@@ -57,15 +63,29 @@ public class TourController {
     @GetMapping(path = "/admin/add-tour")
     String showCreateTourForm(ModelMap modelMap) {
         modelMap.addAttribute("emptyTour", new Tour());
-        modelMap.addAttribute("cities", cityRepository.findAll());
+        modelMap.addAttribute("destinationCityName", "");
+        modelMap.addAttribute("originCityName", "");
+        modelMap.addAttribute("cities", cityService.findAll());
+        modelMap.addAttribute("airports", airportService.findAll());
+        modelMap.addAttribute("originAirportName", "");
+        modelMap.addAttribute("destinationAirportName", "");
+        modelMap.addAttribute("hotels", hotelService.findAll());
+        modelMap.addAttribute("hotelName", "");
         return "tour-create";
     }
 
-    @PostMapping(path = "/admin/save")
-    String handleNewTour(@ModelAttribute("emptyTour") Tour tour) {
+    @PostMapping (path = "/admin/save-tour")
+    String handleNewTour(@ModelAttribute("emptyTour") Tour tour,
+                         @ModelAttribute("destinationCityName") String destinationCityName,
+                         @ModelAttribute("originCityName") String originCityName,
+                         @ModelAttribute("originAirportName") String originAirportName,
+                         @ModelAttribute("destinationAirportName") String destinationAirportName,
+                         @ModelAttribute("hotelName") String hotelName) {
+
+        tourService.save(tour, destinationCityName, originCityName, originAirportName, destinationAirportName, hotelName);
+
         log.info("Handled new tour: " + tour);
-        tourService.calculateDuration(tour);
-        tourService.save(tour);
+
         return "redirect:/admin/panel";
     }
 

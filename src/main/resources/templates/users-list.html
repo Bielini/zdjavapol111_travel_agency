@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista zarejestrowanych użytkowników</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Username</th>
+            <th scope="col">Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+            <td th:text="${user.id}"/>
+            <td th:text="${user.username}"/>
+            <td th:text="${user.roles}"/>
+
+            <td><a th:href="@{/admin/delete_user/{id}/(id=${user.id}) }">delete</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

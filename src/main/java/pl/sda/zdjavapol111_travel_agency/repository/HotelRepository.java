@@ -6,6 +6,7 @@ import pl.sda.zdjavapol111_travel_agency.model.Hotel;
 
 @Repository
 public interface HotelRepository extends JpaRepository <Hotel, Integer> {
+    Hotel findByName(String name);
 
 
 }
