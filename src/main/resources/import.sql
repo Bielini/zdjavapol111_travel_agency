@@ -76,6 +76,9 @@ insert into airport (id, name, city_id) values (12, 'Ivato Airport',12);
 insert into tour ( origin_city_id, origin_airport_id, destination_city_id, destination_airport_id, destination_hotel_id, start_date, end_date, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values ( 3, 3, 1, 1, 1, '2022-06-14', '2022-06-21', 7, 3500, 3000, 0, 10, 10);
 insert into tour ( origin_city_id, origin_airport_id, destination_city_id, destination_airport_id, destination_hotel_id, start_date, end_date, duration_time, adult_price, minor_price, promotion, adult_seats, minor_seats) values ( 3, 3, 1, 1, 1, '2022-06-14', '2022-06-21', 7, 3500, 3000, 0, 10, 10);
 
+insert into customer (id, name, surname, email) values (1, 'Maria', 'Konieczna', 'maria.konieczna@gmail.com');
+
+insert into bought_tour (id, price, adult_seats, minor_seats, customer_id, tour_id) values (1, 5000, 2, 1, 1, 1);
 
 --insert into role (id, name) values(1, 'ADMIN');
 --insert into role (id, name) values(2, 'USER');

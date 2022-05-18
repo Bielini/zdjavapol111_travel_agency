@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zakupione wycieczki</title>
+</head>
+<body>
+<center>
+    <style> table, td, th { border: 1px solid black; } </style>
+    <table class="table">
+        <thead>
+        <tr>
+            <th rowspan="2" scope="col">Id</th>
+            <th rowspan="2" scope="col">Liczba dorosłych</th>
+            <th rowspan="2" scope="col">Liczba dzieci</th>
+            <th rowspan="2" scope="col">Łączna cena</th>
+            <th colspan="4" scope="col">Klient</th>
+            <th colspan="10" scope="col">Wycieczka</th>
+        </tr>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Imię</th>
+            <th scope="col">Nazwisko</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Id</th>
+            <th scope="col">Skąd</th>
+            <th scope="col">Dokąd</th>
+            <th scope="col">Lotnisko-start</th>
+            <th scope="col">Lotnisko-cel</th>
+            <th scope="col">Hotel</th>
+            <th scope="col">Data rozpoczęcia</th>
+            <th scope="col">Data zakończenia</th>
+            <th scope="col">Liczba dni</th>
+            <th scope="col">Promocja</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bougtTour:${boughtTours}">
+                <td th:text="${bougtTour.id}"/>
+                <td th:text="${bougtTour.adultSeats}"/>
+                <td th:text="${bougtTour.minorSeats}"/>
+                <td th:text="${bougtTour.price}"/>
+                <td th:text="${bougtTour.customer.id}"/>
+                <td th:text="${bougtTour.customer.name}"/>
+                <td th:text="${bougtTour.customer.surname}"/>
+                <td th:text="${bougtTour.customer.email}"/>
+                <td th:text="${bougtTour.tour.id}"/>
+                <td th:text="${bougtTour.tour.originCity.name}"/>
+                <td th:text="${bougtTour.tour.destinationCity.name}"/>
+                <td th:text="${bougtTour.tour.originAirport.name}"/>
+                <td th:text="${bougtTour.tour.destinationAirport.name}"/>
+                <td th:text="${bougtTour.tour.destinationHotel.name}"/>
+                <td th:text="${bougtTour.tour.startDate}"/>
+                <td th:text="${bougtTour.tour.endDate}"/>
+                <td th:text="${bougtTour.tour.durationTime}"/>
+                <td th:text="${bougtTour.tour.promotion}"/>
+            </tr>
+        </tbody>
+    </table>
+</center>
+</body>
+</html>
