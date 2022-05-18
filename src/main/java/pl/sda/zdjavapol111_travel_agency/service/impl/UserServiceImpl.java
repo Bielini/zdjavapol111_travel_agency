@@ -9,6 +9,7 @@ import pl.sda.zdjavapol111_travel_agency.repository.UserRepository;
 import pl.sda.zdjavapol111_travel_agency.service.UserService;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,6 +36,16 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Username is empty!");
         }
         return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        userRepository.deleteById(id);
     }
 
     private String getEncodedPassword(String rawPassword) {
