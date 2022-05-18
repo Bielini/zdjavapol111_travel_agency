@@ -1,14 +1,9 @@
 insert into continent (id, name) values (1, 'Europa');
 
 INSERT INTO COUNTRY (ID, NAME,continents_id) VALUES (1, 'Hiszpania',1);
-INSERT INTO COUNTRY (ID, NAME) VALUES (2, 'Grecja');
+INSERT INTO COUNTRY (ID, NAME,continents_id) VALUES (2, 'Grecja',1);
 INSERT INTO COUNTRY (ID, NAME,continents_id) VALUES (3, 'Polska',1);
-INSERT INTO COUNTRY (ID, NAME) VALUES (4, 'Turcja');
-
--- INSERT INTO continent_country (continent_id, COUNTRY_ID) VALUES (1,1);
--- INSERT INTO continent_country (continent_id, country_id) VALUES (1,2);
--- INSERT INTO continent_country (continent_id, country_id) VALUES (1,3);
--- INSERT INTO continent_country (continent_id, country_id) VALUES (1,4);
+INSERT INTO COUNTRY (ID, NAME,continents_id) VALUES (4, 'Turcja',1);
 
 insert into city (id, name, country_id) values (1, 'Malaga', 1);
 insert into city (id, name, country_id) values (2, 'Ateny', 2);
@@ -24,16 +19,12 @@ insert into user (id, username, password) values(1, 'admin', '$2a$10$csIVj5k8CB7
 insert into user_role (user_id, role_id) values(1,1);
 
 insert into continent (id, name) values (2, 'Azja');
-
-insert into country (id, name) values (5, 'Malediwy');
-insert into country (id, name) values (6, 'Filipiny');
-insert into country (id, name) values (7, 'Armenia');
-insert into country (id, name) values (8, 'Cypr');
 --
--- INSERT INTO continent_country (continent_id, country_id) VALUES (2,5);
--- INSERT INTO continent_country (continent_id, country_id) VALUES (2,6);
--- INSERT INTO continent_country (continent_id, country_id) VALUES (2,7);
--- INSERT INTO continent_country (continent_id, country_id) VALUES (2,8);
+insert into country (id, name,continents_id) values (5, 'Malediwy',2);
+insert into country (id, name,continents_id) values (6, 'Filipiny',2);
+insert into country (id, name,continents_id) values (7, 'Armenia',2);
+insert into country (id, name,continents_id) values (8, 'Cypr',2);
+
 
 insert into city (id, name, country_id) values (5, 'Male', 5);
 insert into city (id, name, country_id) values (6, 'Manila', 5);
@@ -43,15 +34,12 @@ insert into city (id, name, country_id) values (8, 'Larnaka', 8);
 
 insert into continent (id, name) values (3, 'Afryka');
 
-insert into country (id, name) values (9, 'Tunezja');
-insert into country (id, name) values (10, 'Egipt');
-insert into country (id, name) values (11, 'Maroko');
-insert into country (id, name) values (12, 'Madagaskar');
+insert into country (id, name,continents_id) values (9, 'Tunezja',3);
+insert into country (id, name,continents_id) values (10, 'Egipt',3);
+insert into country (id, name,continents_id) values (11, 'Maroko',3);
+insert into country (id, name,continents_id) values (12, 'Madagaskar',3);
 
--- INSERT INTO continent_country (continent_id, COUNTRIES_ID) VALUES (3,9);
--- INSERT INTO continent_country (continent_id, COUNTRIES_ID) VALUES (3,10);
--- INSERT INTO continent_country (continent_id, COUNTRIES_ID) VALUES (3,11);
--- INSERT INTO continent_country (continent_id, COUNTRIES_ID) VALUES (3,12);
+
 
 insert into city (id, name, country_id) values (9, 'Tunis', 9);
 insert into city (id, name, country_id) values (10, 'Kair', 9);

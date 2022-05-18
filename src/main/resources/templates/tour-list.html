@@ -36,6 +36,7 @@
 
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
+                <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/prom(id=${tour.id})}">Przestań promować</a>
             </td>
 
         </tr>
@@ -67,8 +68,15 @@
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
             </td>
-
+            <td>
+                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/edit(id=${tour.id})}">Edytuj</a>
+                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/prom(id=${tour.id})}">Promuj</a>
+                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/delete(id=${tour.id})}">Usuń</a>
+            </td>
         </tr>
+
+
+
         </tbody>
     </table>
 
@@ -95,14 +103,15 @@
 
     </form>
     <table class="table">
-        <h3>Wyniki wyszukiwania: </h3>
+        <h3>Wyniki wyszukiwania dla: </h3>
+        <p th:text="${activeFilter}"></p>
         <thead>
         <tr>
             <th scope="col">Cel wycieczki:</th>
             <th scope="col">Cena za osobę dorosłą</th>
             <th scope="col">czas trwania</th>
             <th scope="col">miejsce wyjazdu</th>
-            <th scope="col">promotion</th>
+
 
         </tr>
         </thead>
@@ -112,7 +121,7 @@
             <td th:text="${tour.adultPrice}"/>
             <td th:text="${tour.durationTime}"/>
             <td th:text="${tour.originCity.name}"/>
-            <td th:text="${tour.promotion}"/>
+
 
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
@@ -122,7 +131,8 @@
         </tbody>
     </table>
 
-    <a th:href="@{/login}">Zaloguj się jako administrator</a>
+    <a sec:authorize="!hasAnyRole('ROLE_ADMIN')" th:href="@{/login}">Zaloguj się jako administrator</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/panel}">Cofnij do panelu administratora</a>
     <footer>
     </footer>
 </center>
@@ -139,10 +149,8 @@
         let value =e.target.value;
         if (!value.localeCompare('durationTime')){
             changeIntoNumber();
-            // console.log(value);
         }else{
             changeIntoText();
-            // console.log('siemano')
         }
     }
 

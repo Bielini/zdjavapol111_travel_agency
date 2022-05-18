@@ -54,7 +54,7 @@ public class TourPurchaseController {
     public String handlePeopleAmount(@RequestParam("adultamount") Integer adultamount, @RequestParam("childamount") Integer childamount, ModelMap modelMap){
         this.adultAmount = adultamount;
         this.childAmount = childamount;
-        if(childamount ==0 || childamount == null){
+        if(childamount == 0 || childamount == null){
             tourvalue = tour.getAdultPrice().multiply(new BigDecimal(adultamount));
         } tourvalueAdult = tour.getAdultPrice().multiply(new BigDecimal(adultamount));
         tourvalue = tourvalueAdult.add(tour.getMinorPrice().multiply(new BigDecimal(childamount)));

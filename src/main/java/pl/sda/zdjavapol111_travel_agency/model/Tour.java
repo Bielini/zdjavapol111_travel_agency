@@ -23,22 +23,22 @@ public class Tour {
     private City destinationCity;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Airport destinationAirport; // to dodałam
+    private Airport destinationAirport;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Hotel destinationHotel; // to dodałam
+    private Hotel destinationHotel;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private City originCity;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Airport originAirport; // to dodałam
+    private Airport originAirport;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate startDate; // to dodałam
+    private LocalDate startDate;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate endDate; // to dodałam
+    private LocalDate endDate;
 
     private Integer durationTime;
 
