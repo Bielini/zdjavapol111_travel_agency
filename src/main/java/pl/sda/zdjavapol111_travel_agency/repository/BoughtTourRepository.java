@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pl.sda.zdjavapol111_travel_agency.model.BoughtTour;
 
 @Repository
-public interface BoughtTourRepository extends JpaRepository<BoughtTour, Integer> {
+public interface BoughtTourRepository extends JpaRepository <BoughtTour, Integer> {
 }

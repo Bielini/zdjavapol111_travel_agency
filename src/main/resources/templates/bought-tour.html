@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Summrary</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <h2>Zakupiłeś wycieczkę:)</h2>
+    <h3>Szczegóły znajdziesz na swojej skrzynce mailowej</h3>
+
+    <form method="get" th:action="@{/tours}"/>
+    <table style="width:50%" class="table">
+        <tbody>
+        <tr>
+            <th style="text-align:left">Ilość dorosłych:</th>
+            <td id="adultAmount" th:text="${emptyBoughtTour.adultAmount}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Ilość dzieci:</th>
+            <td id="childAmount" th:text="${emptyBoughtTour.childAmount}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Imię:</th>
+            <td id="name" th:text="${customer.name}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Nazwisko:</th>
+            <td id="surname" th:text="${customer.surname}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">E-mail:</th>
+            <td id="email" th:text="${customer.email}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Do zapłaty:</th>
+            <td id="calculatedPrice" th:text="${emptyBoughtTour.price}"/>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <td>
+        <input type="submit" value="Ok"></input>
+    </td>
+
+</body>
+</html>
