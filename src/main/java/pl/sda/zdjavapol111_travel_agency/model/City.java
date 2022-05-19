@@ -1,5 +1,6 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

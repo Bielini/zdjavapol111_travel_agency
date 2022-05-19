@@ -24,6 +24,8 @@ public interface TourService {
 
     List<Tour> get2PromotedTours();
 
+    void updatePromById(Integer id, Boolean newProm);
+
     List<Tour> getToursByDestCity(String name);
 
     List<Tour> getToursByOriginCity(String name);
@@ -31,5 +33,7 @@ public interface TourService {
     List<Tour> getToursByDurationTime(Integer duration);
 
     List<Tour> filterTours(String searchField, String filter);
+
+
 
 }

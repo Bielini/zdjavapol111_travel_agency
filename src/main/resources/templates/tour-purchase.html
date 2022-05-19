@@ -12,8 +12,8 @@
 </head>
 <body>
 
+<form method="post" th:action="@{/tours/save}" th:object="${emptyBoughtTour}">
 
-<!--<form method="get" action="tour-purchase">-->
 <h2>Zakup wycieczki</h2>
 <table style="width:50%" class="table">
     <tbody>
@@ -55,17 +55,15 @@
     </tr>
     <tr>
         <th style="text-align:left">Cena - dorosły:</th>
-        <td th:text="${tour.adultPrice}"/>
+        <td id="adultPrice" th:text="${tour.adultPrice}"/>
     </tr>
     <tr>
         <th style="text-align:left">Cena - dziecko:</th>
-        <td th:text="${tour.minorPrice}"/>
+        <td id="minorPrice" th:text="${tour.minorPrice}"/>
     </tr>
     </tbody>
 </table>
 
-
-<form method="post"  th:object="${tourvalue}">
     <table style="width:50%" class="table">
         <tbody>
         <tr>
@@ -74,36 +72,72 @@
                     Ilość dorosłych:
                 </label>
             </td>
-            <th><input type="number" name='adultamount'/></th>
+            <th><input id="adultamount" type="number" value="1" min="1" oninput="calculatePrice()"/></th>
+            <td th:if="${#fields.hasErrors('adultAmount')}" th:errors="*{adultAmount}"></td>
         </tr>
-        <tr>
-            <td>
-                <label>
+        <td>
+            <label>
                     Ilość dzieci:
-                </label>
-            </td>
-            <th><input type="number" name='childamount'/></th>
+            </label>
+        </td>
+        <th><input type="number" id='childamount' value="0" min="0" oninput="calculatePrice()"/></th>
+        <td th:if="${#fields.hasErrors('childAmount')}" th:errors="*{childAmount}"></td>
         </tr>
-        <!--        <tr>-->
-        <!--            <td>-->
-        <!--                <label>-->
-        <!--                    Kontakt (teraz jest id):-->
-        <!--                    <input type="text" th:field="*{chgw}"/>-->
-        <!--                </label>-->
-        <!--            </td>-->
-        <!--        </tr>-->
         <tr>
             <td>
                 <label>
-                    <button type="submit" >Wylicz kwotę do zapłaty</button>
+                    Imię:
                 </label>
             </td>
-            <th th:text="${tourvalue}"/>
+            <th><input type="text" name='name'/></th>
+            <td th:if="${#fields.hasErrors('customer.name')}" th:errors="*{customer.name}"></td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Nazwisko:
+                </label>
+            </td>
+            <th><input type="text" name='surname'/></th>
+            <td th:if="${#fields.hasErrors('customer.surname')}" th:errors="*{customer.surname}"></td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    E-mail:
+                </label>
+            </td>
+            <th><input type="email" name='email'/></th>
+            <td th:if="${#fields.hasErrors('customer.email')}" th:errors="*{customer.email}"></td>
+        </tr>
+        <tr>
+            <td id="calculatePrice">
+            </td>
         </tr>
         </tbody>
     </table>
-    <button type="submit">Kupuję</button>
-</form>
 
+
+<script type="text/javascript">
+        function calculatePrice(){
+        const adultPrice = Number.parseFloat(document.getElementById("adultPrice").textContent);
+        const minorPrice = Number.parseFloat(document.getElementById("minorPrice").textContent);
+        const adultamount = document.getElementById("adultamount").value;
+        const childamount = document.getElementById("childamount").value;
+        console.log(adultPrice, minorPrice, adultamount, childamount);
+
+        const Price = adultPrice*adultamount+minorPrice*childamount;
+        document.getElementById("calculatePrice").textContent = Price;
+        }
+        calculatePrice();
+    </script>
+    <td>
+        <input type="submit" value="Kupuję"></input>
+    </td>
+    <td>
+        <a th:href="@{/tours}">Cofnij</a>
+    </td>
+
+</form>
 </body>
 </html>
