@@ -1,16 +1,9 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
 import lombok.Data;
-import org.springframework.context.annotation.Bean;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Data
 public class TourSketch {
-
 
 
     private String destinationCityName;
