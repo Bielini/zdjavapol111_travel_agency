@@ -9,9 +9,8 @@
 <body>
 
 
-
 <center>
-<h1>Biuro podróży</h1>
+    <h1>Biuro podróży</h1>
     <table class="table">
         <h3>2-Promowane wycieczki</h3>
 
@@ -36,7 +35,8 @@
 
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
-                <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/prom(id=${tour.id})}">Przestań promować</a>
+                <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/prom(id=${tour.id})}">Przestań
+                    promować</a>
             </td>
 
         </tr>
@@ -69,18 +69,18 @@
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
             </td>
             <td>
-                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/edit(id=${tour.id})}">Edytuj</a>
-                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/prom(id=${tour.id})}">Promuj</a>
-                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/delete(id=${tour.id})}">Usuń</a>
+                <a sec:authorize="hasAnyRole('ROLE_ADMIN')"
+                   th:href="@{/admin/tours/{id}/edit(id=${tour.id})}">Edytuj</a>
+                <a sec:authorize="hasAnyRole('ROLE_ADMIN')"
+                   th:href="@{/admin/tours/{id}/prom(id=${tour.id})}">Promuj</a>
+                <a sec:authorize="hasAnyRole('ROLE_ADMIN')"
+                   th:href="@{/admin/tours/{id}/delete(id=${tour.id})}">Usuń</a>
             </td>
         </tr>
 
 
-
         </tbody>
     </table>
-
-
 
 
     <form method="POST" th:action="@{/tours/filter}" style="border-style: double;">
@@ -88,11 +88,11 @@
         <h4>Wyszukiwarka wycieczek:</h4>
         <label>
             Wartość:
-            <input type="text" id="searchField"  name="searchField" required/>
+            <input type="text" id="searchField" name="searchField" required/>
         </label>
         <label>
             Filtrowane pole:
-            <select name="filter" id="filters"  class="filters">
+            <select name="filter" id="filters" class="filters">
                 <option value="destinationCity">Docelowe miasto</option>
                 <option value="originCity">Miasto wyjazdu</option>
                 <option value="durationTime">Czas trwania</option>
@@ -145,23 +145,25 @@
 
     selectElement.addEventListener('change', updateValue);
 
-    function updateValue(e){
-        let value =e.target.value;
-        if (!value.localeCompare('durationTime')){
+    function updateValue(e) {
+        let value = e.target.value;
+        if (!value.localeCompare('durationTime')) {
             changeIntoNumber();
-        }else{
+        } else {
             changeIntoText();
         }
     }
 
-    function changeIntoNumber(){
-        document.getElementById('searchField').type= "number";
+    function changeIntoNumber() {
+        document.getElementById('searchField').type = "number";
     }
-    function changeIntoText(){
-        document.getElementById('searchField').type= "text";
+
+    function changeIntoText() {
+        document.getElementById('searchField').type = "text";
     }
-    function changeIntoDate(){
-        document.getElementById('searchField').type= "date";
+
+    function changeIntoDate() {
+        document.getElementById('searchField').type = "date";
     }
 
 </script>

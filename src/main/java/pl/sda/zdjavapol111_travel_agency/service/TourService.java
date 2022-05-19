@@ -1,6 +1,7 @@
 package pl.sda.zdjavapol111_travel_agency.service;
 
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
+import pl.sda.zdjavapol111_travel_agency.model.TourSketch;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ public interface TourService {
     void save(Tour tour, String destinationCityName, String originCityName,
               String originAirportName, String destinationAirportName,
               String hotelName);
+
+    void checkAndUpdate(Integer id, TourSketch tourNewSketch);
 
     List<Tour> getAllTours();
 
@@ -29,7 +32,7 @@ public interface TourService {
     List<Tour> filterTours(String searchField, String filter);
 
     void updatePromById(Integer id, Boolean newProm);
-  
+
     String getActiveFilter(String searchField, String filter);
 
 }

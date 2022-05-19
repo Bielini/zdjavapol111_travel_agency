@@ -5,8 +5,8 @@
     <title>Edycja wycieczki</title>
 </head>
 <body>
-<table style="width:50%;border-style: double" class="table" b>
-    <thead>Stara</thead>
+<table style="width:50%;border-style: double;display: inline-block" class="table" b>
+    <h4>Stara</h4>
     <tbody>
     <tr>
         <td style="text-align:left">Skąd - Kontynent:</td>
@@ -45,9 +45,11 @@
     </tr>
     <tr>
         <td style="text-align:left">Data - od:</td>
-        <td th:text="${oldTour.endDate}"></td>
+        <td th:text="${oldTour.startDate}"></td>
         <td style="text-align:left">Data - do:</td>
         <td th:text="${oldTour.endDate}"></td>
+        <td style="text-align:left">Czas trwania(liczba dni):</td>
+        <td th:text="${oldTour.durationTime}"></td>
     </tr>
     <tr>
         <td style="text-align:left">Ilość dostępnych miejsc - dorośli:</td>
@@ -61,49 +63,113 @@
         <td style="text-align:left">Cena per miejsce - dzieci:</td>
         <td th:text="${oldTour.minorPrice}"></td>
     </tr>
+    <tr>
+        <td style="text-align:left">Promowana?:</td>
+        <td th:text="${oldTour.promotion}"></td>
+
+    </tr>
     </tbody>
 </table>
 
-<form method="post" th:action="@{/admin/tours/{id}/update(id=${oldTour.id})}" th:object="${newTour}">
+<form method="post" style="display: inline-block " th:action="@{/admin/tours/{id}/update(id=${oldTour.id})}"
+      th:object="${oldTour}">
 
     <h4>Nowa</h4>
+    <div class="cities-selects">
+        <label>
+            Miejsce wyjazdu:
+            <select th:field="${tourSketch.originCityName}">
+                <option selected th:text="${oldTour.originCity.name}"
+                        th:value="${oldTour.originCity.name}"></option>
+                <option th:each="city : ${cities}"
+                        th:text="${city.getName()}"
+                        th:value="${city.getName()}"></option>
+            </select>
+        </label>
+        <label>
+            Cel wycieczki:
+            <select th:field="${tourSketch.destinationCityName}">
+                <option selected th:text="${oldTour.destinationCity.name}"
+                        th:value="${oldTour.destinationCity.name}"></option>
+                <option th:each="city : ${cities}"
+                        th:text="${city.getName()}"
+                        th:value="${city.getName()}"></option>
+            </select>
+        </label>
+    </div>
+    <div class="airports-selects">
+        <label>
+            Lotnisko wylotu:
+            <select th:field="${tourSketch.originAirportName}">
+                <option selected th:text="${oldTour.originAirport.name}"
+                        th:value="${oldTour.originAirport.name}"></option>
+                <option th:each="airport : ${airports}"
+                        th:text="${airport.getName()}"
+                        th:value="${airport.getName()}"></option>
+            </select>
+        </label>
+        <label>
+            Lotnisko przylotu:
+            <select th:field="${tourSketch.destinationAirportName}">
+                <option selected th:text="${oldTour.destinationAirport.name}"
+                        th:value="${oldTour.destinationAirport.name}"></option>
+                <option th:each="airport : ${airports}"
+                        th:text="${airport.getName()}"
+                        th:value="${airport.getName()}"></option>
+            </select>
+        </label>
+    </div>
+    <div class="hotel-selects">
 
-    <label>
-        Miejsce wyjazdu:
-        <select name="originCity" >
-            <option selected th:text="${oldTour.originCity.name}"
-                    th:value="${oldTour.originCity}"></option>
-            <option th:each="city : ${cities}"
-                    th:text="${city.getName()}"
-                    th:value="${city}"></option>
-        </select>
-    </label>
+        <label>
+            Hotel:
+            <select th:field="${tourSketch.destinationHotelName}">
+                <option selected th:text="${oldTour.destinationHotel.name}"
+                        th:value="${oldTour.destinationHotel.name}"></option>
 
-    <label>
-        Cel wycieczki:
-        <select name="destinationCity">
-            <option selected th:text="${oldTour.destinationCity.name}"
-                    th:value="${oldTour.destinationCity}"></option>
-
-            <option th:each="city : ${cities}"
-                    th:text="${city.getName()}"
-                    th:value="${city}"></option>
-        </select>
-    </label>
-
-    <div class="slidecontainer">
+                <option th:each="hotel : ${hotels}"
+                        th:text="${hotel.getName()}"
+                        th:value="${hotel.getName()}"></option>
+            </select>
+        </label>
+    </div>
+    <div class="seats-sliders">
         <label>
             Miejsca dorosłych:
-        <input type="range" min="0" max="30" th:value="${oldTour.adultSeats}" name="adultSeats" id="adultsSlider">
-            Liczba: <span id="adultSeats" ></span>
+            <input type="range" min="0" max="30" th:value="${oldTour.adultSeats}" name="adultSeats" id="adultsSlider">
+            Liczba: <span id="adultSeats"></span>
         </label>
         </br>
         <label>
             Miejsca dziecięce:
-        <input type="range" min="0" max="30" th:value="${oldTour.minorSeats}" name="minorSeats" id="minorSlider">
-            Liczba: <span  id="minorSeats"></span>
+            <input type="range" min="0" max="30" th:value="${oldTour.minorSeats}" name="minorSeats" id="minorSlider">
+            Liczba: <span id="minorSeats"></span>
         </label>
     </div>
+
+    <div class="prices-fields">
+        <label>
+            Cena za dorosłego:
+            <input type="number" min="0" th:value="${oldTour.adultPrice}" name="adultPrice">
+        </label>
+        </br>
+        <label>
+            Cena za dziecko:
+            <input type="number" min="0" th:value="${oldTour.minorPrice}" name="minorPrice">
+        </label>
+    </div>
+    <div class="data-fields">
+        <label>
+            Data startu:
+            <input type="date" th:value="${oldTour.startDate}" name="startDate">
+        </label>
+        </br>
+        <label>
+            Data końca:
+            <input type="date" th:value="${oldTour.endDate}" name="endDate">
+        </label>
+    </div>
+
     <button type="submit">Update</button>
 </form>
 </body>
@@ -115,13 +181,16 @@
     const outputAdults = document.getElementById("adultSeats");
     const outputMinors = document.getElementById("minorSeats");
 
+
     outputAdults.innerHTML = sliderAdults.value;
     outputMinors.innerHTML = sliderMinors.value;
 
-    sliderAdults.oninput = function() {
+
+    sliderAdults.oninput = function () {
         outputAdults.innerHTML = this.value;
     }
-    sliderMinors.oninput = function() {
+    sliderMinors.oninput = function () {
         outputMinors.innerHTML = this.value;
     }
+
 </script>

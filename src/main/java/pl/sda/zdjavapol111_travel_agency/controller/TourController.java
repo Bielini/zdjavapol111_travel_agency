@@ -5,11 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
-import pl.sda.zdjavapol111_travel_agency.repository.CityRepository;
-import pl.sda.zdjavapol111_travel_agency.repository.HotelRepository;
-import pl.sda.zdjavapol111_travel_agency.repository.TourRepository;
-import pl.sda.zdjavapol111_travel_agency.service.*;
-
+import pl.sda.zdjavapol111_travel_agency.model.TourSketch;
+import pl.sda.zdjavapol111_travel_agency.service.AirportService;
+import pl.sda.zdjavapol111_travel_agency.service.CityService;
+import pl.sda.zdjavapol111_travel_agency.service.HotelService;
+import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class TourController {
     public String handleNewUserByAdmin(@RequestParam("filter") String filter, @RequestParam("searchField") String searchField) {
         log.info("Received filter: " + filter + " & value of field: " + searchField);
         this.filteredTours = tourService.filterTours(searchField, filter);
-        this.activeFilter = tourService.getActiveFilter(searchField,filter);
+        this.activeFilter = tourService.getActiveFilter(searchField, filter);
         return "redirect:/tours";
     }
 
@@ -74,7 +74,7 @@ public class TourController {
         return "tour-create";
     }
 
-    @PostMapping (path = "/admin/save-tour")
+    @PostMapping(path = "/admin/save-tour")
     String handleNewTour(@ModelAttribute("emptyTour") Tour tour,
                          @ModelAttribute("destinationCityName") String destinationCityName,
                          @ModelAttribute("originCityName") String originCityName,
@@ -83,9 +83,8 @@ public class TourController {
                          @ModelAttribute("hotelName") String hotelName) {
 
         tourService.save(tour, destinationCityName, originCityName, originAirportName, destinationAirportName, hotelName);
-
         log.info("Handled new tour: " + tour);
-
+        this.filteredTours = tourService.getAllTours();
         return "redirect:/admin/panel";
     }
 
@@ -97,38 +96,36 @@ public class TourController {
     }
 
     @GetMapping(path = "/admin/tours/{id}/prom")
-    public String flipPromTour(@PathVariable Integer id){
+    public String flipPromTour(@PathVariable Integer id) {
         Tour tour = tourService.getById(id);
-        tourService.updatePromById(id,!tour.getPromotion());
-        log.info("Received: " + id +" ,and change tour to promoted: "+ !tour.getPromotion());
+        tourService.updatePromById(id, !tour.getPromotion());
+        log.info("Received: " + id + " ,and change tour to promoted: " + !tour.getPromotion());
         return "redirect:/tours";
     }
+
     @GetMapping(path = "/admin/tours/{id}/delete")
-    public String deleteTour(@PathVariable Integer id){
+    public String deleteTour(@PathVariable Integer id) {
         tourService.deleteById(id);
         log.info("Deleted tour of id: " + id);
-        filteredTours=tourService.getAllTours();
+        filteredTours = tourService.getAllTours();
         activeFilter = "";
         return "redirect:/tours";
     }
 
     @GetMapping(path = "/admin/tours/{id}/edit")
-    public String showEditTourForm(@PathVariable Integer id,ModelMap modelMap){
-        modelMap.addAttribute("oldTour",tourService.getById(id));
-        modelMap.addAttribute("newTour", new Tour());
+    public String showEditTourForm(@PathVariable Integer id, ModelMap modelMap) {
+        modelMap.addAttribute("oldTour", tourService.getById(id));
         modelMap.addAttribute("cities", cityService.findAll());
-
+        modelMap.addAttribute("airports", airportService.findAll());
+        modelMap.addAttribute("hotels", hotelService.findAll());
+        modelMap.addAttribute("tourSketch", new TourSketch());
         return "tour-edit";
     }
 
     @PostMapping(path = "/admin/tours/{id}/update")
-    public String handleUpdatedTour(
-            @PathVariable() Integer id,
-            @ModelAttribute(name = "originCity") String originCity,
-            @ModelAttribute(name = "adultSeats") Integer adultSeats){
-
-        log.info(id+originCity+adultSeats);
-
-        return "redirect:/admin/tours/{id}/edit";
+    public String handleUpdatedTour(@PathVariable Integer id, @ModelAttribute("tourSketch") TourSketch tourUpdatedSketch) {
+        log.info("Received: " + tourUpdatedSketch);
+        tourService.checkAndUpdate(id, tourUpdatedSketch);
+        return "redirect:/admin/tours/" + id + "/edit";
     }
 }
