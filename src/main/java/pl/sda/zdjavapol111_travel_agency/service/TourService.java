@@ -13,7 +13,7 @@ public interface TourService {
               String originAirportName, String destinationAirportName,
               String hotelName);
 
-    void checkAndUpdate(Integer id, TourSketch tourNewSketch);
+    void update(Integer id, TourSketch tourNewSketch);
 
     List<Tour> getAllTours();
 
