@@ -125,7 +125,7 @@ public class TourController {
     @PostMapping(path = "/admin/tours/{id}/update")
     public String handleUpdatedTour(@PathVariable Integer id, @ModelAttribute("tourSketch") TourSketch tourUpdatedSketch) {
         log.info("Received: " + tourUpdatedSketch);
-        tourService.checkAndUpdate(id, tourUpdatedSketch);
+        tourService.update(id, tourUpdatedSketch);
         return "redirect:/admin/tours/" + id + "/edit";
     }
 }

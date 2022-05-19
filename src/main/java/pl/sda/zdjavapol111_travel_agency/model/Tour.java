@@ -1,8 +1,8 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,9 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
 @Data
-
 public class Tour {
 
     @Id
@@ -53,4 +51,24 @@ public class Tour {
     private Integer minorSeats;
 
 
+    @Builder
+    public Tour(Long id, City destinationCity, Airport destinationAirport, Hotel destinationHotel, City originCity, Airport originAirport, LocalDate startDate, LocalDate endDate, Integer durationTime, BigDecimal adultPrice, BigDecimal minorPrice, Boolean promotion, Integer adultSeats, Integer minorSeats) {
+        this.id = id;
+        this.destinationCity = destinationCity;
+        this.destinationAirport = destinationAirport;
+        this.destinationHotel = destinationHotel;
+        this.originCity = originCity;
+        this.originAirport = originAirport;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.durationTime = durationTime;
+        this.adultPrice = adultPrice;
+        this.minorPrice = minorPrice;
+        this.promotion = promotion;
+        this.adultSeats = adultSeats;
+        this.minorSeats = minorSeats;
+    }
+
+    public Tour() {
+    }
 }

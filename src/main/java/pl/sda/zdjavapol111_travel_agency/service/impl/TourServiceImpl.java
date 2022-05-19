@@ -177,112 +177,28 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public void checkAndUpdate(Integer id, TourSketch newTourSketch) {
+    public void update(Integer id, TourSketch newTourSketch) {
         Tour oldTour = tourRepository.getById(id.longValue());
-
-        if (!oldTour.getDestinationCity().getName().equals(newTourSketch.getDestinationCityName())) {
-            updateToursDestinationCity(oldTour.getId(), newTourSketch.getDestinationCityName());
-        }
-        if (!oldTour.getDestinationAirport().getName().equals(newTourSketch.getDestinationAirportName())) {
-            updateToursDestinationAirport(oldTour.getId(), newTourSketch.getDestinationAirportName());
-        }
-        if (!oldTour.getDestinationHotel().getName().equals(newTourSketch.getDestinationHotelName())) {
-            updateToursDestinationHotel(oldTour.getId(), newTourSketch.getDestinationHotelName());
-        }
-        if (!oldTour.getOriginCity().getName().equals(newTourSketch.getOriginCityName())) {
-            updateToursOriginCity(oldTour.getId(), newTourSketch.getOriginCityName());
-        }
-        if (!oldTour.getOriginAirport().getName().equals(newTourSketch.getOriginAirportName())) {
-            updateToursOriginAirport(oldTour.getId(), newTourSketch.getOriginAirportName());
-        }
-        if (!oldTour.getStartDate().toString().equals(newTourSketch.getStartDate())) {
-            updateToursStartDate(oldTour.getId(), newTourSketch.getStartDate());
-        }
-        if (!oldTour.getEndDate().toString().equals(newTourSketch.getEndDate())) {
-            updateToursEndDate(oldTour.getId(), newTourSketch.getEndDate());
-        }
-
         try {
-            if (!getOldTourDuration(oldTour).equals(subtractDates(newTourSketch.getStartDate(), newTourSketch.getEndDate()))) {
-                updateToursDuration(oldTour.getId(), newTourSketch.getStartDate(), newTourSketch.getEndDate());
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        if (!oldTour.getAdultPrice().toString().equals(newTourSketch.getAdultPrice())) {
-            updateToursAdultPrice(oldTour.getId(), newTourSketch.getAdultPrice());
-        }
-        if (!oldTour.getMinorPrice().toString().equals(newTourSketch.getMinorPrice())) {
-            updateToursMinorPrice(oldTour.getId(), newTourSketch.getMinorPrice());
-        }
-        if (!oldTour.getAdultSeats().toString().equals(newTourSketch.getAdultSeats())) {
-            updateToursAdultSeats(oldTour.getId(), newTourSketch.getAdultSeats());
-        }
-        if (!oldTour.getMinorSeats().toString().equals(newTourSketch.getMinorSeats())) {
-            updateToursMinorSeats(oldTour.getId(), newTourSketch.getMinorSeats());
-        }
-
-        if (!oldTour.getPromotion().toString().equals(newTourSketch.getPromotion())) {
-            updatePromById(oldTour.getId().intValue(), Boolean.getBoolean(newTourSketch.getPromotion()));
-        }
-
-
-    }
-
-    private Integer getOldTourDuration(Tour oldTour) throws ParseException {
-        return subtractDates(oldTour.getStartDate().toString(), oldTour.getEndDate().toString());
-    }
-
-    private void updateToursDestinationCity(Long id, String destinationCityName) {
-        tourRepository.updateDestinationCityById(id, cityRepository.findByName(destinationCityName));
-    }
-
-    private void updateToursDestinationAirport(Long id, String destinationAirportName) {
-        tourRepository.updateDestinationAirportById(id, airportRepository.findByName(destinationAirportName));
-    }
-
-    private void updateToursDestinationHotel(Long id, String destinationHotelName) {
-        tourRepository.updateDestinationHotelById(id, hotelRepository.findByName(destinationHotelName));
-    }
-
-    private void updateToursOriginCity(Long id, String originCityName) {
-        tourRepository.updateOriginCityById(id, cityRepository.findByName(originCityName));
-    }
-
-    private void updateToursOriginAirport(Long id, String originAirportName) {
-        tourRepository.updateOriginAirportById(id, airportRepository.findByName(originAirportName));
-    }
-
-    private void updateToursStartDate(Long id, String startDate) {
-        tourRepository.updateStartDateById(id, LocalDate.parse(startDate));
-    }
-
-    private void updateToursEndDate(Long id, String endDate) {
-        tourRepository.updateEndDateById(id, LocalDate.parse(endDate));
-    }
-
-    private void updateToursDuration(Long id, String startDate, String endDate) {
-        try {
-            tourRepository.updateDurationById(id, subtractDates(startDate, endDate));
+            Tour newTour = Tour.builder()
+                    .id(id.longValue())
+                    .destinationCity(cityRepository.findByName(newTourSketch.getDestinationCityName()))
+                    .destinationAirport(airportRepository.findByName(newTourSketch.getDestinationAirportName()))
+                    .destinationHotel(hotelRepository.findByName(newTourSketch.getDestinationHotelName()))
+                    .originCity(cityRepository.findByName(newTourSketch.getOriginCityName()))
+                    .originAirport(airportRepository.findByName(newTourSketch.getOriginAirportName()))
+                    .startDate(LocalDate.parse(newTourSketch.getStartDate()))
+                    .endDate(LocalDate.parse(newTourSketch.getEndDate()))
+                    .durationTime(subtractDates(newTourSketch.getStartDate(), newTourSketch.getEndDate()))
+                    .adultPrice(new BigDecimal(newTourSketch.getAdultPrice()))
+                    .minorPrice(new BigDecimal(newTourSketch.getMinorPrice()))
+                    .adultSeats(Integer.parseInt(newTourSketch.getAdultSeats()))
+                    .minorSeats(Integer.parseInt(newTourSketch.getMinorSeats()))
+                    .promotion(oldTour.getPromotion())
+                    .build();
+            tourRepository.save(newTour);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
-
-    private void updateToursAdultPrice(Long id, String adultPrice) {
-        tourRepository.updateAdultPriceById(id, new BigDecimal(adultPrice));
-    }
-
-    private void updateToursMinorPrice(Long id, String minorPrice) {
-        tourRepository.updateMinorPriceById(id, new BigDecimal(minorPrice));
-    }
-
-    private void updateToursAdultSeats(Long id, String adultSeats) {
-        tourRepository.updateAdultSeatsById(id, Integer.parseInt(adultSeats));
-    }
-
-    private void updateToursMinorSeats(Long id, String minorSeats) {
-        tourRepository.updateMinorSeatsById(id, Integer.parseInt(minorSeats));
-    }
-
 }
