@@ -1,14 +1,14 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Data
+
 public class City {
 
     @Id
@@ -23,4 +23,14 @@ public class City {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Hotel> hotels;
 
+    @Builder
+    private City(Integer id, String name, Country country, List<Hotel> hotels) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.hotels = hotels;
+    }
+
+    public City() {
+    }
 }
