@@ -43,7 +43,8 @@ public class TourController {
 
     @GetMapping(path = "/tours")
     public String tourList(ModelMap modelMap) {
-        modelMap.addAttribute("promotedTours", tourService.get2PromotedTours());
+        modelMap.addAttribute("promotedTours", tourService.get3PromotedTours());
+        modelMap.addAttribute("commingTours", tourService.get3CommingTours());
         modelMap.addAttribute("tours", tourService.getAllTours());
         modelMap.addAttribute("filteredTours", filteredTours);
         modelMap.addAttribute("activeFilter", activeFilter);
@@ -126,6 +127,8 @@ public class TourController {
     public String handleUpdatedTour(@PathVariable Integer id, @ModelAttribute("tourSketch") TourSketch tourUpdatedSketch) {
         log.info("Received: " + tourUpdatedSketch);
         tourService.update(id, tourUpdatedSketch);
+        filteredTours = tourService.getAllTours();
+        activeFilter = "";
         return "redirect:/admin/tours/" + id + "/edit";
     }
 }

@@ -16,11 +16,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -112,20 +110,41 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> get2PromotedTours() {
+    public List<Tour> get3PromotedTours() {
+
         List<Tour> allTours = tourRepository.findAll();
 
         List<Tour> promotedTours = new ArrayList<>();
         int counter = 0;
 
         for (Tour tour : allTours) {
-            if (tour.getPromotion() && counter < 2) {
+            if (tour.getPromotion() && counter < 3) {
                 promotedTours.add(tour);
                 counter++;
             }
         }
         return promotedTours;
     }
+
+    @Override
+    public List<Tour> get3CommingTours() {
+
+        List<Tour> allToursSortedByClosest = tourRepository.findAll().stream()
+                .sorted((Comparator.comparing(Tour::getStartDate)))
+                .collect(Collectors.toList());
+
+        List<Tour> commingTours = new ArrayList<>();
+        int counter = 0;
+
+        for (Tour tour : allToursSortedByClosest) {
+            if (counter < 3) {
+                commingTours.add(tour);
+                counter++;
+            }
+        }
+        return commingTours;
+    }
+
 
     @Override
     public List<Tour> getToursByDurationTime(Integer duration) {

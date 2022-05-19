@@ -12,7 +12,7 @@
 <center>
     <h1>Biuro podróży</h1>
     <table class="table">
-        <h3>2-Promowane wycieczki</h3>
+        <h3>3-Promowane wycieczki</h3>
 
         <thead>
         <tr>
@@ -31,6 +31,39 @@
             <td th:text="${tour.adultPrice}"/>
             <td th:text="${tour.durationTime}"/>
             <td th:text="${tour.originCity.name}"/>
+            <td th:text="${tour.promotion}"/>
+
+            <td>
+                <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
+                <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/prom(id=${tour.id})}">Przestań
+                    promować</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <h3>3-Zbliżające się wycieczki</h3>
+
+        <thead>
+        <tr>
+            <th scope="col">Cel wycieczki:</th>
+            <th scope="col">Cena za osobę dorosłą</th>
+            <th scope="col">czas trwania</th>
+            <th scope="col">miejsce wyjazdu</th>
+            <th scope="col">start wycieczki</th>
+            <th scope="col">promotion</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tour : ${commingTours}">
+
+            <td th:text="${tour.destinationCity.name}"/>
+            <td th:text="${tour.adultPrice}"/>
+            <td th:text="${tour.durationTime}"/>
+            <td th:text="${tour.originCity.name}"/>
+            <td th:text="${tour.startDate.toString()}"/>
             <td th:text="${tour.promotion}"/>
 
             <td>

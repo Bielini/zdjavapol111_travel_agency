@@ -21,7 +21,8 @@ public interface TourService {
 
     Tour getById(Integer id);
 
-    List<Tour> get2PromotedTours();
+    List<Tour> get3PromotedTours();
+    List<Tour> get3CommingTours();
 
     List<Tour> getToursByDurationTime(Integer duration);
 

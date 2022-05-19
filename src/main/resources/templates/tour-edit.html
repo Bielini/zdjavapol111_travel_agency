@@ -161,16 +161,15 @@
     <div class="data-fields">
         <label>
             Data startu:
-            <input type="date" th:value="${oldTour.startDate}" name="startDate">
+            <input type="date" th:value="${oldTour.startDate}" onchange="checkDates()" name="startDate" id="startDate">
         </label>
         </br>
         <label>
             Data końca:
-            <input type="date" th:value="${oldTour.endDate}" name="endDate">
+            <input type="date" th:value="${oldTour.endDate}" onchange="checkDates()" name="endDate" id="endDate">
         </label>
     </div>
-
-    <button type="submit">Update</button>
+    <button  type="submit" id="submitButton">Update</button>
 </form>
 </body>
 </html>
@@ -181,10 +180,8 @@
     const outputAdults = document.getElementById("adultSeats");
     const outputMinors = document.getElementById("minorSeats");
 
-
     outputAdults.innerHTML = sliderAdults.value;
     outputMinors.innerHTML = sliderMinors.value;
-
 
     sliderAdults.oninput = function () {
         outputAdults.innerHTML = this.value;
@@ -193,4 +190,10 @@
         outputMinors.innerHTML = this.value;
     }
 
+    function checkDates() {
+        const startDt = document.getElementById("startDate").value;
+        const endDt = document.getElementById("endDate").value;
+        const submitButton =document.getElementById("submitButton");
+        submitButton.disabled = (new Date(startDt).getTime() > new Date(endDt).getTime());
+    }
 </script>
