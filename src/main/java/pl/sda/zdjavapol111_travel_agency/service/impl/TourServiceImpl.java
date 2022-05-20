@@ -127,7 +127,7 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> get3CommingTours() {
+    public List<Tour> get3ComingTours() {
 
         List<Tour> allToursSortedByClosest = tourRepository.findAll().stream()
                 .sorted((Comparator.comparing(Tour::getStartDate)))
@@ -145,26 +145,11 @@ public class TourServiceImpl implements TourService {
         return commingTours;
     }
 
-
-    @Override
-    public List<Tour> getToursByDurationTime(Integer duration) {
-        return tourRepository.findAllToursByDurationTime(duration);
-    }
-
     @Override
     public void updatePromById(Integer id, Boolean newProm) {
         tourRepository.updatePromotionById(id.longValue(), newProm);
     }
 
-    @Override
-    public List<Tour> getToursByDestCity(String name) {
-        return tourRepository.findAllToursByDestinationCity(name);
-    }
-
-    @Override
-    public List<Tour> getToursByOriginCity(String name) {
-        return tourRepository.findAllToursByOriginCity(name);
-    }
 
     public List<Tour> filterTours(String searchField, String filter) {
 
@@ -193,6 +178,27 @@ public class TourServiceImpl implements TourService {
                 return "Czas trwania co najmniej: " + searchField + " dni";
         }
         return "";
+    }
+
+    @Override
+    public List<Tour> sortTours(String sort, List<Tour> filteredTours) {
+
+        switch (sort) {
+            case "adultPrice":
+                return filteredTours.stream()
+                        .sorted(Comparator.comparing(Tour::getAdultPrice))
+                        .collect(Collectors.toList());
+            case "minorPrice":
+                return filteredTours.stream()
+                        .sorted(Comparator.comparing(Tour::getMinorPrice))
+                        .collect(Collectors.toList());
+            case "durationTime":
+                return filteredTours.stream()
+                        .sorted(Comparator.comparing(Tour::getDurationTime))
+                        .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+
     }
 
     @Override

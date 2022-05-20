@@ -22,13 +22,7 @@ public interface TourService {
     Tour getById(Integer id);
 
     List<Tour> get3PromotedTours();
-    List<Tour> get3CommingTours();
-
-    List<Tour> getToursByDurationTime(Integer duration);
-
-    List<Tour> getToursByDestCity(String name);
-
-    List<Tour> getToursByOriginCity(String name);
+    List<Tour> get3ComingTours();
 
     List<Tour> filterTours(String searchField, String filter);
 
@@ -36,4 +30,5 @@ public interface TourService {
 
     String getActiveFilter(String searchField, String filter);
 
+    List<Tour> sortTours(String sort, List<Tour> filteredTours);
 }

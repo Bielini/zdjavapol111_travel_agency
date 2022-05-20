@@ -169,7 +169,8 @@
             <input type="date" th:value="${oldTour.endDate}" onchange="checkDates()" name="endDate" id="endDate">
         </label>
     </div>
-    <button  type="submit" id="submitButton">Update</button>
+    <button type="submit" id="submitButton">Update</button>
+    <a th:href="@{/tours}">cofnij</a>
 </form>
 </body>
 </html>
@@ -193,7 +194,7 @@
     function checkDates() {
         const startDt = document.getElementById("startDate").value;
         const endDt = document.getElementById("endDate").value;
-        const submitButton =document.getElementById("submitButton");
+        const submitButton = document.getElementById("submitButton");
         submitButton.disabled = (new Date(startDt).getTime() > new Date(endDt).getTime());
     }
 </script>
