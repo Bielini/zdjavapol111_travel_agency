@@ -1,5 +1,6 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,11 @@ public class Country {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<City> cities;
+
+    @Builder
+    public Country(Integer id, String name, Continent continents) {
+        this.id = id;
+        this.name = name;
+        this.continents = continents;
+    }
 }
