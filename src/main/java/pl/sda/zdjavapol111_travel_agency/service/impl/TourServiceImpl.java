@@ -16,11 +16,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -112,14 +110,15 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> get2PromotedTours() {
+    public List<Tour> get3PromotedTours() {
+
         List<Tour> allTours = tourRepository.findAll();
 
         List<Tour> promotedTours = new ArrayList<>();
         int counter = 0;
 
         for (Tour tour : allTours) {
-            if (tour.getPromotion() && counter < 2) {
+            if (tour.getPromotion() && counter < 3) {
                 promotedTours.add(tour);
                 counter++;
             }
@@ -128,8 +127,22 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> getToursByDurationTime(Integer duration) {
-        return tourRepository.findAllToursByDurationTime(duration);
+    public List<Tour> get3ComingTours() {
+
+        List<Tour> allToursSortedByClosest = tourRepository.findAll().stream()
+                .sorted((Comparator.comparing(Tour::getStartDate)))
+                .collect(Collectors.toList());
+
+        List<Tour> commingTours = new ArrayList<>();
+        int counter = 0;
+
+        for (Tour tour : allToursSortedByClosest) {
+            if (counter < 3) {
+                commingTours.add(tour);
+                counter++;
+            }
+        }
+        return commingTours;
     }
 
     @Override
@@ -137,15 +150,6 @@ public class TourServiceImpl implements TourService {
         tourRepository.updatePromotionById(id.longValue(), newProm);
     }
 
-    @Override
-    public List<Tour> getToursByDestCity(String name) {
-        return tourRepository.findAllToursByDestinationCity(name);
-    }
-
-    @Override
-    public List<Tour> getToursByOriginCity(String name) {
-        return tourRepository.findAllToursByOriginCity(name);
-    }
 
     public List<Tour> filterTours(String searchField, String filter) {
 
@@ -174,6 +178,27 @@ public class TourServiceImpl implements TourService {
                 return "Czas trwania co najmniej: " + searchField + " dni";
         }
         return "";
+    }
+
+    @Override
+    public List<Tour> sortTours(String sort, List<Tour> filteredTours) {
+
+        switch (sort) {
+            case "adultPrice":
+                return filteredTours.stream()
+                        .sorted(Comparator.comparing(Tour::getAdultPrice))
+                        .collect(Collectors.toList());
+            case "minorPrice":
+                return filteredTours.stream()
+                        .sorted(Comparator.comparing(Tour::getMinorPrice))
+                        .collect(Collectors.toList());
+            case "durationTime":
+                return filteredTours.stream()
+                        .sorted(Comparator.comparing(Tour::getDurationTime))
+                        .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+
     }
 
     @Override

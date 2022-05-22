@@ -43,7 +43,8 @@ public class TourController {
 
     @GetMapping(path = "/tours")
     public String tourList(ModelMap modelMap) {
-        modelMap.addAttribute("promotedTours", tourService.get2PromotedTours());
+        modelMap.addAttribute("promotedTours", tourService.get3PromotedTours());
+        modelMap.addAttribute("comingTours", tourService.get3ComingTours());
         modelMap.addAttribute("tours", tourService.getAllTours());
         modelMap.addAttribute("filteredTours", filteredTours);
         modelMap.addAttribute("activeFilter", activeFilter);
@@ -52,13 +53,26 @@ public class TourController {
     }
 
     @PostMapping("/tours/filter")
-    public String handleNewUserByAdmin(@RequestParam("filter") String filter, @RequestParam("searchField") String searchField) {
+    public String handleNewFilter(@RequestParam("filter") String filter, @RequestParam("searchField") String searchField) {
         log.info("Received filter: " + filter + " & value of field: " + searchField);
         this.filteredTours = tourService.filterTours(searchField, filter);
         this.activeFilter = tourService.getActiveFilter(searchField, filter);
         return "redirect:/tours";
     }
 
+    @GetMapping("/tours/reset")
+    public String handleResetFilters() {
+        this.filteredTours = tourService.getAllTours();
+        this.activeFilter = "";
+        return "redirect:/tours";
+    }
+
+    @PostMapping("/tours/sort")
+    public String handleNewSorter(@RequestParam("sort") String sort) {
+        log.info("Received sorter: " + sort );
+        this.filteredTours = tourService.sortTours(sort, filteredTours);
+        return "redirect:/tours";
+    }
 
     @GetMapping(path = "/admin/add-tour")
     String showCreateTourForm(ModelMap modelMap) {
@@ -126,6 +140,8 @@ public class TourController {
     public String handleUpdatedTour(@PathVariable Integer id, @ModelAttribute("tourSketch") TourSketch tourUpdatedSketch) {
         log.info("Received: " + tourUpdatedSketch);
         tourService.update(id, tourUpdatedSketch);
+        filteredTours = tourService.getAllTours();
+        activeFilter = "";
         return "redirect:/admin/tours/" + id + "/edit";
     }
 }
