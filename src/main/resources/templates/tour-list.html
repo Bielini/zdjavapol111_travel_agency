@@ -68,8 +68,7 @@
 
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
-                <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{/admin/tours/{id}/prom(id=${tour.id})}">Przestań
-                    promować</a>
+
             </td>
 
         </tr>
