@@ -23,7 +23,7 @@ public class Customer {
 
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
     private List<BoughtTour> boughtTours;
 
 }

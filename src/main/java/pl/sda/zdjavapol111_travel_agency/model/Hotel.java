@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -20,7 +22,10 @@ public class Hotel {
 
     private String description;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private City city;
+
+    @OneToMany(mappedBy = "destinationHotel", cascade = CascadeType.ALL)
+    private List<Tour> tours;
 
 }

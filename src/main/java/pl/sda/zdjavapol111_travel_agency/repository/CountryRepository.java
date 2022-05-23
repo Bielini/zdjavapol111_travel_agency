@@ -6,6 +6,6 @@ import pl.sda.zdjavapol111_travel_agency.model.Country;
 
 @Repository
 public interface CountryRepository extends JpaRepository <Country, Integer>{
-
+    Country findByName(String name);
 
 }

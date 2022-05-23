@@ -19,16 +19,16 @@ public class Country {
 
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Continent continents;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Continent continent;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
     private List<City> cities;
 
     @Builder
-    public Country(Integer id, String name, Continent continents) {
+    public Country(Integer id, String name, Continent continent) {
         this.id = id;
         this.name = name;
-        this.continents = continents;
+        this.continent = continent;
     }
 }

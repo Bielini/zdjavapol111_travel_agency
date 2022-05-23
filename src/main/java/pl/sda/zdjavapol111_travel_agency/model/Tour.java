@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -22,16 +24,16 @@ public class Tour {
     @ManyToOne(fetch = FetchType.EAGER)
     private City destinationCity;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Airport destinationAirport;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Hotel destinationHotel;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private City originCity;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Airport originAirport;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -51,6 +53,9 @@ public class Tour {
     private Integer adultSeats;
 
     private Integer minorSeats;
+
+    @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL)
+    List<BoughtTour> boughtTours;
 
 
 }

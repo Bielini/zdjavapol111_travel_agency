@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -17,11 +18,20 @@ public class City {
 
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Country country;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Hotel> hotels;
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Airport> airports;
+
+    @OneToMany(mappedBy = "destinationCity", cascade = CascadeType.ALL)
+    private List<Tour> toursWithDestinationCity;
+
+    @OneToMany(mappedBy = "originCity", cascade = CascadeType.ALL)
+    private List<Tour> toursWithOriginCity;
 
     @Builder
     private City(Integer id, String name, Country country, List<Hotel> hotels) {

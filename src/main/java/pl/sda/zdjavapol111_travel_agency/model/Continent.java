@@ -19,7 +19,7 @@ public class Continent {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "continent", cascade = CascadeType.ALL)
     private List<Country> countries;
 
     @Builder
