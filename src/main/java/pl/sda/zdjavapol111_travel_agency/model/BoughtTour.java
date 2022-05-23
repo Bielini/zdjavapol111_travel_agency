@@ -28,4 +28,6 @@ public class BoughtTour {
     private Tour tour;
 
 
+
+
 }
