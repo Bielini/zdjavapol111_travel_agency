@@ -71,6 +71,6 @@ class CityServiceTest {
 
         //then
         Assertions.assertEquals(1, all.size());
-       // Assertions.assertEquals("Warszawa", all.stream().findAny().get().getName());
+        Assertions.assertEquals("Warszawa", all.stream().findAny().get().getName());
     }
 }
