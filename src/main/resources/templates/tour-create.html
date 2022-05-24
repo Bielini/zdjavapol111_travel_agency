@@ -5,106 +5,132 @@
     <title>Nowa wycieczka</title>
 </head>
 <body>
-    <form method="post" th:action="@{/admin/save-tour}" th:object="${emptyTour}" >
+<form method="post" th:action="@{/admin/save-tour}" th:object="${emptyTour}">
+
+    <div class="data-fields">
         <label>
-            Data rozpoczęcia:
-            <input type="date" th:field="*{startDate}">
+            Data startu:
+            <input type="date" th:field="*{startDate}" onchange="checkDates()" name="startDate" id="startDate" required>
         </label>
-
+        </br>
         <label>
-            Data zakończenia:
-            <input type="date" th:field="*{endDate}">
+            Data końca:
+            <input type="date" th:field="*{endDate}" onchange="checkDates()" name="endDate" id="endDate" required>
         </label>
+    </div>
 
-        <br>
 
-        <label>
-            Start podróży:
-            <select name="originCityName" th:object="${originCityName}">
-                    <option th:each="city : ${cities}"
+    <label>
+        Start podróży:
+        <select name="originCityName" th:object="${originCityName}" required>
+            <option th:each="city : ${cities}"
                     th:text="${city.getName()}"
                     th:value="${city.getName()}"/>
-                </select>
-        </label>
+        </select>
+    </label>
 
+    <label>
+        Cel podróży:
+        <select name="destinationCityName" th:object="${destinationCityName}" required>
+            <option th:each="city : ${cities}"
+                    th:text="${city.getName()}"
+                    th:value="${city.getName()}"/>
+        </select>
+    </label>
+
+    <br>
+
+    <label>
+        Lotnisko - start:
+        <select name="originAirportName" th:object="${originAirportName}" required>
+            <option th:each="airport : ${airports}"
+                    th:text="${airport.getName()}"
+                    th:value="${airport.getName()}"/>
+        </select>
+    </label>
+
+    <label>
+        Lotnisko - cel:
+        <select name="destinationAirportName" th:object="${destinationAirportName}" required>
+            <option th:each="airport : ${airports}"
+                    th:text="${airport.getName()}"
+                    th:value="${airport.getName()}"/>
+        </select>
+    </label>
+
+    <br>
+
+    <label>
+        Hotel:
+        <select name="hotelName" th:object="${hotelName}" required>
+            <option th:each="hotel : ${hotels}"
+                    th:text="${hotel.getName()}"
+                    th:value="${hotel.getName()}"/>
+        </select>
+    </label>
+
+    <br>
+
+
+    <div class="prices-fields">
         <label>
-            Cel podróży:
-            <select name="destinationCityName" th:object="${destinationCityName}">
-                <option th:each="city : ${cities}"
-                th:text="${city.getName()}"
-                th:value="${city.getName()}"/>
-            </select>
+            Cena za dorosłego:
+            <input type="number" min="0" th:field="*{adultPrice}" name="adultPrice" required>
         </label>
-
-        <br>
-
+        </br>
         <label>
-            Lotnisko - start:
-            <select name="originAirportName" th:object="${originAirportName}">
-                <option th:each="airport : ${airports}"
-                        th:text="${airport.getName()}"
-                        th:value="${airport.getName()}"/>
-            </select>
+            Cena za dziecko:
+            <input type="number" min="0" th:field="*{minorPrice}" name="minorPrice" required>
         </label>
+    </div>
 
+
+    <label>
+        Promocja
+        <input type="checkbox" th:field="*{promotion}">
+    </label>
+
+    <div class="seats-sliders">
         <label>
-            Lotnisko - cel:
-            <select name="destinationAirportName" th:object="${destinationAirportName}">
-                <option th:each="airport : ${airports}"
-                        th:text="${airport.getName()}"
-                        th:value="${airport.getName()}"/>
-            </select>
+            Miejsca dorosłych:
+            <input type="range" min="0" max="30" th:field="*{adultSeats}" name="adultSeats" id="adultsSlider" required>
+            Liczba: <span id="adultSeats"></span>
         </label>
-
-        <br>
-
+        </br>
         <label>
-            Hotel:
-            <select name="hotelName" th:object="${hotelName}">
-                <option th:each="hotel : ${hotels}"
-                        th:text="${hotel.getName()}"
-                        th:value="${hotel.getName()}"/>
-            </select>
+            Miejsca dziecięce:
+            <input type="range" min="0" max="30" th:field="*{minorSeats}" name="minorSeats" id="minorSlider" required>
+            Liczba: <span id="minorSeats"></span>
         </label>
+    </div>
+    <br>
 
-        <br>
-
-        <label>
-            Cena za osobę dorosłą:
-            <input type="number" th:field="*{adultPrice}">
-        </label>
-
-        <br>
-
-        <label>
-            Cena za osobę niepełnoletnią:
-            <input type="number" th:field="*{minorPrice}">
-        </label>
-
-        <br>
-
-        <label>
-            Promocja
-            <input type="checkbox" th:field="*{promotion}">
-        </label>
-
-        <br>
-
-        <label>
-            Liczba miejsc dla osób dorosłych:
-            <input type="number" th:field="*{adultSeats}">
-        </label>
-
-        <br>
-
-        <label>
-            Liczba miejsc dla dzieci:
-            <input type="number" th:field="*{minorSeats}">
-        </label>
-
-        <br>
-
-        <button type="submit">Dodaj wycieczkę</button>
-    </form>
+    <button type="submit" id="submitButton">Dodaj wycieczkę</button>
+    <a th:href="@{/admin/panel}">cofnij</a>
+</form>
 </body>
 </html>
+
+<script>
+    const sliderAdults = document.getElementById("adultsSlider");
+    const sliderMinors = document.getElementById("minorSlider");
+    const outputAdults = document.getElementById("adultSeats");
+    const outputMinors = document.getElementById("minorSeats");
+
+    outputAdults.innerHTML = sliderAdults.value;
+    outputMinors.innerHTML = sliderMinors.value;
+
+    sliderAdults.oninput = function () {
+        outputAdults.innerHTML = this.value;
+    }
+    sliderMinors.oninput = function () {
+        outputMinors.innerHTML = this.value;
+    }
+
+    function checkDates() {
+        const startDt = document.getElementById("startDate").value;
+        const endDt = document.getElementById("endDate").value;
+        const submitButton = document.getElementById("submitButton");
+        submitButton.disabled = (new Date(startDt).getTime() > new Date(endDt).getTime());
+    }
+</script>

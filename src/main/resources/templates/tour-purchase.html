@@ -13,7 +13,7 @@
 <body>
 
 
-<!--<form method="get" action="tour-purchase">-->
+
 <h2>Zakup wycieczki</h2>
 <table style="width:50%" class="table">
     <tbody>
@@ -84,14 +84,7 @@
             </td>
             <th><input type="number" name='childamount'/></th>
         </tr>
-        <!--        <tr>-->
-        <!--            <td>-->
-        <!--                <label>-->
-        <!--                    Kontakt (teraz jest id):-->
-        <!--                    <input type="text" th:field="*{chgw}"/>-->
-        <!--                </label>-->
-        <!--            </td>-->
-        <!--        </tr>-->
+
         <tr>
             <td>
                 <label>
@@ -103,6 +96,7 @@
         </tbody>
     </table>
     <button type="submit">Kupuję</button>
+    <a th:href="@{/tours/{id}/(id=${tour.id})}">Cofnij</a>
 </form>
 
 </body>
