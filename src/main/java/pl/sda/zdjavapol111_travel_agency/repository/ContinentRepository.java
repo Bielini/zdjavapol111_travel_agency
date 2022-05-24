@@ -6,5 +6,5 @@ import pl.sda.zdjavapol111_travel_agency.model.Continent;
 
 @Repository
 public interface ContinentRepository extends JpaRepository <Continent, Integer>{
-
+    Continent findByName(String name);
 }
