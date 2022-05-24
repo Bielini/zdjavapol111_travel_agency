@@ -9,8 +9,8 @@
         <thead>
         <tr>
             <th scope="col">Id</th>
-            <th scope="col">Username</th>
-            <th scope="col">Role</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Rola</th>
         </tr>
         </thead>
         <tbody>
@@ -19,7 +19,8 @@
             <td th:text="${user.username}"/>
             <td th:text="${user.roles}"/>
 
-            <td><a th:href="@{/admin/delete_user/{id}/(id=${user.id}) }">delete</a></td>
+            <td><a th:href="@{/admin/delete_user/{id}/(id=${user.id}) }">Usuń</a></td>
+            <td><a th:href="@{/admin/panel}">Cofnij</a></td>
 
         </tr>
         </tbody>

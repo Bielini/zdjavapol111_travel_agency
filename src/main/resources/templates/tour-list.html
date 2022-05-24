@@ -10,7 +10,7 @@
 
 
 <center>
-    <h1>Biuro podróży</h1>
+    <div th:fragment="header">Biuro podróży</div>
     <table class="table">
         <h3>3-Promowane wycieczki</h3>
 
@@ -68,7 +68,6 @@
 
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
-
             </td>
 
         </tr>
@@ -114,37 +113,44 @@
         </tbody>
     </table>
 
+    <div id="list_changers">
+        <div style="display: inline-block" id="sort_changers">
+            <form method="POST" th:action="@{/tours/sort}" style="border-style: double;">
+                <h4>Sortowanie wycieczek:</h4>
+                <input style="display: inline-block" type="radio" id="adultPrice" name="sort" value="adultPrice"
+                       checked="checked">
+                <label for="adultPrice">Cena za dorosłego</label><br>
+                <input style="display: inline-block" type="radio" id="minorPrice" name="sort" value="minorPrice">
+                <label for="minorPrice">Cena za dziecko</label><br>
+                <input style="display: inline-block" type="radio" id="durationTime" name="sort" value="durationTime">
+                <label for="durationTime">Czas trwania</label><br>
+                <button type="submit">Sortuj</button>
+            </form>
+        </div>
+        <div style="display: inline-block" id="filter_changers">
+            <form method="POST" th:action="@{/tours/filter}" style="border-style: double;">
 
-    <form method="POST" th:action="@{/tours/sort}" style="border-style: double;">
-        <h4>Sortowanie wycieczek:</h4>
-        <input style="display: inline-block" type="radio" id="adultPrice" name="sort" value="adultPrice" checked="checked">
-        <label for="adultPrice">Cena za dorosłego</label><br>
-        <input style="display: inline-block" type="radio" id="minorPrice" name="sort" value="minorPrice" >
-        <label for="minorPrice">Cena za dziecko</label><br>
-        <input style="display: inline-block" type="radio" id="durationTime" name="sort" value="durationTime" >
-        <label for="durationTime">Czas trwania</label><br>
-        <button type="submit">Sortuj</button>
-    </form>
-    <form method="POST" th:action="@{/tours/filter}" style="border-style: double;">
+                <h4>Wyszukiwarka wycieczek:</h4>
+                <label>
+                    Wartość:
+                    <input type="text" id="searchField" name="searchField" required/>
+                </label>
+                <label>
+                    Filtrowane pole:
+                    <select name="filter" id="filters" class="filters">
+                        <option value="destinationCity">Cel wycieczki</option>
+                        <option value="originCity">Miasto wyjazdu</option>
+                        <option value="durationTime">Czas trwania</option>
+                        <option value="adultPrice">Cena za Os.dorosłą</option>
+                    </select>
+                </label>
+                <br/>
+                <button type="submit">Filtruj</button>
+            </form>
+        </div>
+    </div>
+    <a  th:href="@{/tours/reset}">Reset</a>
 
-        <h4>Wyszukiwarka wycieczek:</h4>
-        <label>
-            Wartość:
-            <input type="text" id="searchField" name="searchField" required/>
-        </label>
-        <label>
-            Filtrowane pole:
-            <select name="filter" id="filters" class="filters">
-                <option value="destinationCity">Cel wycieczki</option>
-                <option value="originCity">Miasto wyjazdu</option>
-                <option value="durationTime">Czas trwania</option>
-                <option value="adultPrice">Cena za Os.dorosłą</option>
-            </select>
-        </label>
-        <br/>
-        <button type="submit">Filtruj</button>
-    </form>
-    <a th:href="@{/tours/reset}">Reset</a>
 
     <table class="table">
         <h3>Wyniki wyszukiwania dla: </h3>

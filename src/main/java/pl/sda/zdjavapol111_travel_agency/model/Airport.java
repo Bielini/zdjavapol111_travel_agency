@@ -16,6 +16,6 @@ public class Airport {
 
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private City city;
 }

@@ -123,7 +123,7 @@
 
         <label>
             Hotel:
-            <select th:field="${tourSketch.destinationHotelName}">
+            <select th:field="${tourSketch.destinationHotelName}" required>
                 <option selected th:text="${oldTour.destinationHotel.name}"
                         th:value="${oldTour.destinationHotel.name}"></option>
 
@@ -133,16 +133,19 @@
             </select>
         </label>
     </div>
+
     <div class="seats-sliders">
         <label>
             Miejsca dorosłych:
-            <input type="range" min="0" max="30" th:value="${oldTour.adultSeats}" name="adultSeats" id="adultsSlider">
+            <input type="range" min="0" max="30" th:value="${oldTour.adultSeats}" name="adultSeats" id="adultsSlider"
+                   required>
             Liczba: <span id="adultSeats"></span>
         </label>
         </br>
         <label>
             Miejsca dziecięce:
-            <input type="range" min="0" max="30" th:value="${oldTour.minorSeats}" name="minorSeats" id="minorSlider">
+            <input type="range" min="0" max="30" th:value="${oldTour.minorSeats}" name="minorSeats" id="minorSlider"
+                   required>
             Liczba: <span id="minorSeats"></span>
         </label>
     </div>
@@ -150,23 +153,25 @@
     <div class="prices-fields">
         <label>
             Cena za dorosłego:
-            <input type="number" min="0" th:value="${oldTour.adultPrice}" name="adultPrice">
+            <input type="number" min="0" th:value="${oldTour.adultPrice}" name="adultPrice" required>
         </label>
         </br>
         <label>
             Cena za dziecko:
-            <input type="number" min="0" th:value="${oldTour.minorPrice}" name="minorPrice">
+            <input type="number" min="0" th:value="${oldTour.minorPrice}" name="minorPrice" required>
         </label>
     </div>
     <div class="data-fields">
         <label>
             Data startu:
-            <input type="date" th:value="${oldTour.startDate}" onchange="checkDates()" name="startDate" id="startDate">
+            <input type="date" th:value="${oldTour.startDate}" onchange="checkDates()" name="startDate" id="startDate"
+                   required>
         </label>
         </br>
         <label>
             Data końca:
-            <input type="date" th:value="${oldTour.endDate}" onchange="checkDates()" name="endDate" id="endDate">
+            <input type="date" th:value="${oldTour.endDate}" onchange="checkDates()" name="endDate" id="endDate"
+                   required>
         </label>
     </div>
     <button type="submit" id="submitButton">Update</button>
