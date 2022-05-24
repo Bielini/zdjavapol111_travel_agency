@@ -25,16 +25,16 @@ public class Tour {
     @ManyToOne(fetch = FetchType.EAGER)
     private City destinationCity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Airport destinationAirport;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Hotel destinationHotel;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private City originCity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Airport originAirport;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

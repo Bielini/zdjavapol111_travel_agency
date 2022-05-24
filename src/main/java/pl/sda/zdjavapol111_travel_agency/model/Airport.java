@@ -1,5 +1,6 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -48,5 +49,12 @@ public class Airport {
                 ", name='" + name + '\'' +
                 ", city=" + city +
                 '}';
+    }
+
+    @Builder
+    public Airport(Integer id, String name, City city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
     }
 }
