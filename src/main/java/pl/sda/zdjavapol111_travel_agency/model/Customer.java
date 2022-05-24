@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -18,35 +18,19 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+//    @Null(message = "Podanie imienia jest obowiązkowe")
     private String name;
 
+//    @Null(message = "Podanie nazwiska jest obowiązkowe")
     private String surname;
 
+//    @Null(message = "Podanie adresu e-mail jest obowiązkowe")
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
-    private List<BoughtTour> boughtTours;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "CUSTOMER_BOUGHT_TOURS",
+//                    joinColumns = @JoinColumn(name = "CUSTOMER_ID"),
+//                    inverseJoinColumns = @JoinColumn(name = "BOUGHT_TOURS_ID"))
+////    private List<BoughtTour> boughtTours;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(surname, customer.surname) && Objects.equals(email, customer.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, surname, email);
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

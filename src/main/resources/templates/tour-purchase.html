@@ -7,65 +7,69 @@
         table, th, td {
             border: 1px solid black;
         }
+
     </style>
 
 </head>
 <body>
 
+<form method="post" th:action="@{/tours/save}" th:object="${emptyBoughtTour}">
+    <h2>Zakup wycieczki</h2>
+    <td text="${tour.id}" name="tour" hidden></td>
+<!--    <output th:type="hidden" th:text="${tour.id}" name="tour" hidden/>-->
+<!--    <input th:type="hidden" th:text="${tour.id}" th:field="*{tour}" th:name="tour"></input>-->
+
+    <table style="width:50%" class="table">
+        <tbody>
 
 
-<h2>Zakup wycieczki</h2>
-<table style="width:50%" class="table">
-    <tbody>
-    <tr>
-        <th style="text-align:left">Skąd - miasto:</th>
-        <td th:text="${tour.originCity.name}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Skąd - lotnisko:</th>
-        <td th:text="${tour.originAirport.name}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Dokąd - miasto:</th>
-        <td th:text="${tour.destinationCity.name}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Dokąd - lotnisko:</th>
-        <td th:text="${tour.destinationAirport.name}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Dokąd - hotel:</th>
-        <td th:text="${tour.destinationHotel.name}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Data - od:</th>
-        <td th:text="${tour.startDate}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Data - do:</th>
-        <td th:text="${tour.endDate}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Ilość dostępnych miejsc - dorośli:</th>
-        <td th:text="${tour.adultSeats}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Ilość dostępnych miejsc - dzieci:</th>
-        <td th:text="${tour.minorSeats}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Cena - dorosły:</th>
-        <td th:text="${tour.adultPrice}"/>
-    </tr>
-    <tr>
-        <th style="text-align:left">Cena - dziecko:</th>
-        <td th:text="${tour.minorPrice}"/>
-    </tr>
-    </tbody>
-</table>
+        <tr>
+            <th style="text-align:left">Skąd - miasto:</th>
+            <td th:text="${tour.originCity.name}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Skąd - lotnisko:</th>
+            <td th:text="${tour.originAirport.name}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Dokąd - miasto:</th>
+            <td th:text="${tour.destinationCity.name}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Dokąd - lotnisko:</th>
+            <td th:text="${tour.destinationAirport.name}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Dokąd - hotel:</th>
+            <td th:text="${tour.destinationHotel.name}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Data - od:</th>
+            <td th:text="${tour.startDate}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Data - do:</th>
+            <td th:text="${tour.endDate}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Ilość dostępnych miejsc - dorośli:</th>
+            <td th:text="${tour.adultSeats}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Ilość dostępnych miejsc - dzieci:</th>
+            <td th:text="${tour.minorSeats}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Cena - dorosły:</th>
+            <td id="adultPrice" th:text="${tour.adultPrice}"/>
+        </tr>
+        <tr>
+            <th style="text-align:left">Cena - dziecko:</th>
+            <td id="minorPrice" th:text="${tour.minorPrice}"/>
+        </tr>
+        </tbody>
+    </table>
 
-
-<form method="post"  th:object="${tourvalue}">
     <table style="width:50%" class="table">
         <tbody>
         <tr>
@@ -74,30 +78,81 @@
                     Ilość dorosłych:
                 </label>
             </td>
-            <th><input type="number" name='adultamount'/></th>
+            <th><input id="adultamount" type="number" value="1" min="1" oninput="calculatePrice()" name="adultAmount"/></th>
+<!--            <td th:if="${#fields.hasErrors('adultAmount')}" th:errors="*{adultAmount}"></td>-->
+        </tr>
+        <td>
+            <label>
+                Ilość dzieci:
+            </label>
+        </td>
+        <th><input type="number" id='childamount' value="0" min="0" oninput="calculatePrice()" name="childAmount"/></th>
+<!--        <td th:if="${#fields.hasErrors('childAmount')}" th:errors="*{childAmount}"></td>-->
         </tr>
         <tr>
             <td>
                 <label>
-                    Ilość dzieci:
+                    Imię:
                 </label>
             </td>
-            <th><input type="number" name='childamount'/></th>
+            <th><input type="text" name='name' required/></th>
+<!--            <td th:if="${#fields.hasErrors('customer.name')}" th:errors="*{customer.name}"></td>-->
         </tr>
-
         <tr>
             <td>
                 <label>
-                    <button type="submit" >Wylicz kwotę do zapłaty</button>
+                    Nazwisko:
                 </label>
             </td>
-            <th th:text="${tourvalue}"/>
+            <th><input type="text" name='surname' required/></th>
+<!--            <td th:if="${#fields.hasErrors('customer.surname')}" th:errors="*{customer.surname}"></td>-->
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    E-mail:
+                </label>
+            </td>
+            <th><input type="email" name='email' required/></th>
+<!--            <td th:if="${#fields.hasErrors('customer.email')}" th:errors="*{customer.email}"></td>-->
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Do zapłaty:
+                </label>
+            </td>
+            <th>
+                <output id="calculatedPrice" name="price"/>
+            </th>
         </tr>
         </tbody>
-    </table>
-    <button type="submit">Kupuję</button>
-    <a th:href="@{/tours/{id}/(id=${tour.id})}">Cofnij</a>
-</form>
 
+    </table>
+
+
+    <script type="text/javascript">
+        function calculatePrice(){
+        const adultPricevar = Number.parseFloat(document.getElementById("adultPrice").textContent);
+        const minorPricevar = Number.parseFloat(document.getElementById("minorPrice").textContent);
+        const adultamountvar = document.getElementById("adultamount").value;
+        const childamountvar = document.getElementById("childamount").value;
+        console.log(adultPricevar, minorPricevar, adultamountvar, childamountvar);
+
+        const Price = adultPricevar*adultamountvar+minorPricevar*childamountvar;
+        document.getElementById("calculatedPrice").textContent = Price;
+        }
+        calculatePrice();
+
+    </script>
+
+    <td>
+        <input type="submit" value="Kupuję"></input>
+    </td>
+    <td>
+        <a th:href="@{/tours}">Cofnij</a>
+    </td>
+
+</form>
 </body>
 </html>
