@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -21,7 +22,7 @@ public class Continent {
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "continent", cascade = CascadeType.ALL)
-    private List<Country> countries;
+    private Set<Country> countries;
 
     @Builder
     public Continent(Integer id, String name) {

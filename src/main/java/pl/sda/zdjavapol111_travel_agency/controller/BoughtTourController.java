@@ -13,8 +13,7 @@ import pl.sda.zdjavapol111_travel_agency.service.impl.TourServiceImpl;
 
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+
 
 
 @Slf4j
@@ -59,8 +58,6 @@ public class BoughtTourController {
     @PostMapping(path = "/tours/save")
     public String handleNewBoughtTour(@ModelAttribute("emptyBoughtTour") BoughtTour boughtTour,
                                       @ModelAttribute("customer") Customer customer
-//                                      ,@ModelAttribute("tour") Tour tourObject
-
 
 //                                      Errors errors
     ) {
@@ -79,8 +76,7 @@ public class BoughtTourController {
 
         System.out.println(tourObject.getId());
 
-//        boughtTour.setPrice(new BigDecimal(price));
-//        boughtTour.setTour(tourService.getById(Integer.parseInt(id)));
+
 
         customerService.save(customer);
         log.info("Dodano klienta: " + customer);
