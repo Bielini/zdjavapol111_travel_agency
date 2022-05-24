@@ -4,23 +4,34 @@
     <meta charset="UTF-8">
     <title>Dodawanie nowego administratora</title>
 </head>
-<body>
+<body onload="checkFields()">
 
 <form method="post" th:action="@{/admin/save-admin}" th:object="${emptyUser}">
 
     <label>
         Nazwa użytkownika:
-        <input type="text" th:field="*{username}">
+        <input type="text" oninput="checkFields()" th:field="*{username}"  id="username" required >
     </label>
 
     <label>
         Hasło:
-        <input type="password" th:field="*{password}">
+        <input type="password" oninput="checkFields()" th:field="*{password}" id="password" required >
     </label>
 
-    <button type="submit">Dodaj administratora</button>
+    <button type="submit" id="submitButton">Dodaj administratora</button>
+    <a th:href="@{/admin/panel}">cofnij</a>
 
 </form>
 
 </body>
 </html>
+<script>
+
+    function checkFields() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const submitButton = document.getElementById("submitButton");
+
+        submitButton.disabled = (username.length === 0 || password.length === 0);
+    }
+</script>
