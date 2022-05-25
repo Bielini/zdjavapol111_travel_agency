@@ -56,31 +56,18 @@ public class BoughtTourController {
     @Transactional
     @PostMapping(path = "/tours/save")
     public String handleNewBoughtTour(@ModelAttribute("emptyBoughtTour") BoughtTour boughtTour,
-                                      @ModelAttribute("customer") Customer customer
-
-    ) {
-
-
-
+                                      @ModelAttribute("customer") Customer customer) {
         customerService.save(customer);
         log.info("Dodano klienta: " + customer);
 
-
-
         tourService.save(tourObject, boughtTour);
 
-
         boughtTourService.save(boughtTour, customer, tourObject);
-
-
         log.info("Zakupiono wycieczkę: " + boughtTour);
-
-
-
-        log.info("wynik {} {} {} {} {}" + customer + boughtTour);
 
         return "/bought-tour";
     }
+
 
     @GetMapping(path = "/admin/bought-tours-list")
     public String showListOfBoughtTours(ModelMap modelMap) {

@@ -19,11 +19,6 @@ public class CityServiceImpl implements CityService {
         return cityRepository.findAll();
     }
 
-    @Override
-    public City getById(Integer id) {
-        return cityRepository.getById(id);
-    }
-
 
 }
 

@@ -15,8 +15,6 @@ public interface BoughtTourService {
 
     void save(BoughtTour boughtTour, Customer customer, Tour tour);
 
-    void save(BoughtTour boughtTour);
-
     List<BoughtTour> findAll();
 
 }
