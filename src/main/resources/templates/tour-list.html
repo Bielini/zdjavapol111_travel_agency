@@ -12,15 +12,15 @@
 <center>
     <div th:fragment="header">Biuro podróży</div>
     <table class="table">
-        <h3>3-Promowane wycieczki</h3>
+        <h3>Promowane wycieczki: </h3>
 
         <thead>
         <tr>
-            <th scope="col">Cel wycieczki:</th>
-            <th scope="col">Cena za osobę dorosłą</th>
-            <th scope="col">czas trwania</th>
-            <th scope="col">miejsce wyjazdu</th>
-            <th scope="col">promotion</th>
+            <th scope="col">Cel wycieczki: </th>
+            <th scope="col">Cena za osobę dorosłą: </th>
+            <th scope="col">Czas trwania: </th>
+            <th scope="col">Miejsce wyjazdu: </th>
+            <th scope="col" sec:authorize="hasAnyRole('ROLE_ADMIN')">Promotion: </th>
 
         </tr>
         </thead>
@@ -31,7 +31,7 @@
             <td th:text="${tour.adultPrice}"/>
             <td th:text="${tour.durationTime}"/>
             <td th:text="${tour.originCity.name}"/>
-            <td th:text="${tour.promotion}"/>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN')" th:text="${tour.promotion}"/>
 
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
@@ -43,16 +43,16 @@
         </tbody>
     </table>
     <table class="table">
-        <h3>3-Zbliżające się wycieczki</h3>
+        <h3>Zbliżające się wycieczki</h3>
 
         <thead>
         <tr>
-            <th scope="col">Cel wycieczki:</th>
-            <th scope="col">Cena za osobę dorosłą</th>
-            <th scope="col">czas trwania</th>
-            <th scope="col">miejsce wyjazdu</th>
-            <th scope="col">start wycieczki</th>
-            <th scope="col">promotion</th>
+            <th scope="col">Cel wycieczki: </th>
+            <th scope="col">Cena za osobę dorosłą: </th>
+            <th scope="col">Czas trwania: </th>
+            <th scope="col">Miejsce wyjazdu: </th>
+            <th scope="col">Start wycieczki: </th>
+            <th scope="col" sec:authorize="hasAnyRole('ROLE_ADMIN')">Promotion: </th>
 
         </tr>
         </thead>
@@ -64,7 +64,7 @@
             <td th:text="${tour.durationTime}"/>
             <td th:text="${tour.originCity.name}"/>
             <td th:text="${tour.startDate.toString()}"/>
-            <td th:text="${tour.promotion}"/>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN')" th:text="${tour.promotion}"/>
 
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
@@ -79,11 +79,11 @@
 
         <thead>
         <tr>
-            <th scope="col">Cel wycieczki:</th>
-            <th scope="col">Cena za osobę dorosłą</th>
-            <th scope="col">czas trwania</th>
-            <th scope="col">miejsce wyjazdu</th>
-            <th scope="col">promotion</th>
+            <th scope="col">Cel wycieczki: </th>
+            <th scope="col">Cena za osobę dorosłą: </th>
+            <th scope="col">Czas trwania: </th>
+            <th scope="col">Miejsce wyjazdu: </th>
+            <th scope="col" sec:authorize="hasAnyRole('ROLE_ADMIN')">Promotion: </th>
 
         </tr>
         </thead>
@@ -94,7 +94,7 @@
             <td th:text="${tour.adultPrice}"/>
             <td th:text="${tour.durationTime}"/>
             <td th:text="${tour.originCity.name}"/>
-            <td th:text="${tour.promotion}"/>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN')" th:text="${tour.promotion}"/>
 
             <td>
                 <a th:href="@{/tours/{id}/(id=${tour.id})}">Więcej...</a>
@@ -138,10 +138,10 @@
                 <label>
                     Filtrowane pole:
                     <select name="filter" id="filters" class="filters">
-                        <option value="destinationCity">Cel wycieczki</option>
-                        <option value="originCity">Miasto wyjazdu</option>
-                        <option value="durationTime">Czas trwania</option>
-                        <option value="adultPrice">Cena za Os.dorosłą</option>
+                        <option value="destinationCity">Cel wycieczki.</option>
+                        <option value="originCity">Miasto wyjazdu.</option>
+                        <option value="durationTime">Czas trwania.</option>
+                        <option value="adultPrice">Cena za Os.dorosłą.</option>
                     </select>
                 </label>
                 <br/>
@@ -157,10 +157,10 @@
         <p th:text="${activeFilter}"></p>
         <thead>
         <tr>
-            <th scope="col">Cel wycieczki:</th>
-            <th scope="col">Cena za osobę dorosłą</th>
-            <th scope="col">czas trwania</th>
-            <th scope="col">miejsce wyjazdu</th>
+            <th scope="col">Cel wycieczki: </th>
+            <th scope="col">Cena za osobę dorosłą: </th>
+            <th scope="col">Czas trwania: </th>
+            <th scope="col">Miejsce wyjazdu: </th>
 
 
         </tr>
