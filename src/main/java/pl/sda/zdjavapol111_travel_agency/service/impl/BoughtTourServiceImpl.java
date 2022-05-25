@@ -49,6 +49,7 @@ public class BoughtTourServiceImpl implements BoughtTourService {
             boughtTourRepository.save(boughtTour);
     }
 
+
     public List<BoughtTour> findAll() {
         return boughtTourRepository.findAll();
     }
