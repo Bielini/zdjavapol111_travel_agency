@@ -3,8 +3,9 @@ package pl.sda.zdjavapol111_travel_agency.service;
 import pl.sda.zdjavapol111_travel_agency.model.BoughtTour;
 import pl.sda.zdjavapol111_travel_agency.model.Customer;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
-
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
+
 
 public interface BoughtTourService {
 
@@ -14,7 +15,8 @@ public interface BoughtTourService {
 
     void save(BoughtTour boughtTour, Customer customer, Tour tour);
 
+    void save(BoughtTour boughtTour);
 
-
+    List<BoughtTour> findAll();
 
 }
