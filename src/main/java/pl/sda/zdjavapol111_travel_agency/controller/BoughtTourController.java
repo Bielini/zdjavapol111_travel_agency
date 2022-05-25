@@ -96,5 +96,11 @@ public class BoughtTourController {
         return "/bought-tour";
     }
 
+    @GetMapping(path = "/admin/bought-tours-list")
+    public String showListOfBoughtTours(ModelMap modelMap) {
+        modelMap.addAttribute("boughtTours", boughtTourService.findAll());
+        return "bought-tours-list";
+    }
+
 
 }

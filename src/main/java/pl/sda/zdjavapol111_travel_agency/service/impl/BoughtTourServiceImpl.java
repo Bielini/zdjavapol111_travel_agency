@@ -11,6 +11,7 @@ import pl.sda.zdjavapol111_travel_agency.repository.*;
 import pl.sda.zdjavapol111_travel_agency.service.BoughtTourService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Slf4j
 @Primary
@@ -60,6 +61,11 @@ public class BoughtTourServiceImpl implements BoughtTourService {
     @Override
     public void save(BoughtTour boughtTour) {
         boughtTourRepository.save(boughtTour);
+    }
+
+    @Override
+    public List<BoughtTour> findAll() {
+        return boughtTourRepository.findAll();
     }
 
 

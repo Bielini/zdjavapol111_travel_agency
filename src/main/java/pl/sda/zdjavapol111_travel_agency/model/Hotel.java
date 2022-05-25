@@ -1,5 +1,6 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,6 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
 @Data
 public class Hotel {
 
@@ -28,6 +28,19 @@ public class Hotel {
 
     @OneToMany(mappedBy = "destinationHotel", cascade = CascadeType.ALL)
     private List<Tour> tours;
+
+    @Builder
+    public Hotel(Integer id, String name, Integer standard, String description, City city) {
+        this.id = id;
+        this.name = name;
+        this.standard = standard;
+        this.description = description;
+        this.city = city;
+    }
+
+    public Hotel() {
+
+    }
 
     @Override
     public boolean equals(Object o) {

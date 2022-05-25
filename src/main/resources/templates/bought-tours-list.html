@@ -37,8 +37,8 @@
         <tbody>
             <tr th:each="bougtTour:${boughtTours}">
                 <td th:text="${bougtTour.id}"/>
-                <td th:text="${bougtTour.adultSeats}"/>
-                <td th:text="${bougtTour.minorSeats}"/>
+                <td th:text="${bougtTour.adultAmount}"/>
+                <td th:text="${bougtTour.childAmount}"/>
                 <td th:text="${bougtTour.price}"/>
                 <td th:text="${bougtTour.customer.id}"/>
                 <td th:text="${bougtTour.customer.name}"/>
