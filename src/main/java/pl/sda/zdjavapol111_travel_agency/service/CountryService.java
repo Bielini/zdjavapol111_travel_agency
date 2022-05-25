@@ -7,5 +7,4 @@ public interface CountryService {
 
     Country getById(Integer id);
 
-    String toString(Country country);
 }

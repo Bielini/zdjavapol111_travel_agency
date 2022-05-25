@@ -15,10 +15,4 @@ public class CountryServiceImpl implements CountryService {
         return countryRepository.getById(id);
     }
 
-    @Override
-    public String toString(Country country) {
-        return country.toString();
-    }
-
-
 }
