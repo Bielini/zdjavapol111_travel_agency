@@ -1,5 +1,6 @@
 package pl.sda.zdjavapol111_travel_agency.service;
 
+import pl.sda.zdjavapol111_travel_agency.model.BoughtTour;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.model.TourSketch;
 
@@ -31,4 +32,6 @@ public interface TourService {
     String getActiveFilter(String searchField, String filter);
 
     List<Tour> sortTours(String sort, List<Tour> filteredTours);
+
+    void save(Tour tour, BoughtTour boughtTour);
 }
