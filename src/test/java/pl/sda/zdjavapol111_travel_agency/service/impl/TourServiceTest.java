@@ -11,6 +11,7 @@ import pl.sda.zdjavapol111_travel_agency.service.TourService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -106,13 +107,14 @@ class TourServiceTest {
         String hotelName= "Acropolis Ami Boutique Hotel";
         //when
         tourService.save(tour, destinationCityName, originCityName, originAirportName, destinationAirportName, hotelName);
+        List<Tour> tours = tourRepository.findAll();
         //then
-        Assert.assertEquals(tourRepository.findAll().size(), 1);
-        Assert.assertEquals(tourRepository.findAll().get(0).getDestinationCity().getName(), destinationCityName);
-        Assert.assertEquals(tourRepository.findAll().get(0).getOriginCity().getName(), originCityName);
-        Assert.assertEquals(tourRepository.findAll().get(0).getDestinationAirport().getName(), destinationAirportName);
-        Assert.assertEquals(tourRepository.findAll().get(0).getOriginAirport().getName(), originAirportName);
-        Assert.assertEquals(tourRepository.findAll().get(0).getDestinationHotel().getName(), hotelName);
-        //TODO przetestować calculateAndSetDuration();
+        Assert.assertEquals(tours.size(), 1);
+        Assert.assertEquals(tours.get(0).getDestinationCity().getName(), destinationCityName);
+        Assert.assertEquals(tours.get(0).getOriginCity().getName(), originCityName);
+        Assert.assertEquals(tours.get(0).getDestinationAirport().getName(), destinationAirportName);
+        Assert.assertEquals(tours.get(0).getOriginAirport().getName(), originAirportName);
+        Assert.assertEquals(tours.get(0).getDestinationHotel().getName(), hotelName);
+        Assert.assertEquals(tours.get(0).getDurationTime(), Integer.valueOf(5));
     }
 }
