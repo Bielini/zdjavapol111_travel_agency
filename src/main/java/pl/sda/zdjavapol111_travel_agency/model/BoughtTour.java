@@ -1,11 +1,13 @@
 package pl.sda.zdjavapol111_travel_agency.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 //import javax.validation.constraints.Min;
 
@@ -21,10 +23,8 @@ public class BoughtTour {
 
     private BigDecimal price;
 
-//    @Min(value = 1, message = "Ilość musi być większa od 1")
     private Integer adultAmount;
 
-//    @Min(value = 0, message = "Ilość musi być większa od 0")
     private Integer childAmount;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -32,6 +32,16 @@ public class BoughtTour {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Tour tour;
+
+    @Builder
+    private BoughtTour(Integer id, BigDecimal price, Integer adultAmount, Integer childAmount, Customer customer, Tour tour) {
+        this.id = id;
+        this.price = price;
+        this.adultAmount = adultAmount;
+        this.childAmount = childAmount;
+        this.customer = customer;
+        this.tour = tour;
+    }
 
     @Override
     public boolean equals(Object o) {
