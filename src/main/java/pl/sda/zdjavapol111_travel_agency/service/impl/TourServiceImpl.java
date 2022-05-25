@@ -41,7 +41,7 @@ public class TourServiceImpl implements TourService {
         try {
             tour.setDurationTime(subtractDates(tour.getStartDate().toString(), tour.getEndDate().toString()));
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Can't parse dates, illegal format", e);
         }
     }
 
