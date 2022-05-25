@@ -10,10 +10,8 @@ import pl.sda.zdjavapol111_travel_agency.model.*;
 import pl.sda.zdjavapol111_travel_agency.service.impl.CustomerServiceImpl;
 import pl.sda.zdjavapol111_travel_agency.service.impl.BoughtTourServiceImpl;
 import pl.sda.zdjavapol111_travel_agency.service.impl.TourServiceImpl;
-
-
 import javax.transaction.Transactional;
-
+import java.math.BigDecimal;
 
 
 @Slf4j
@@ -49,7 +47,8 @@ public class BoughtTourController {
         boughtObject.setTour(tourObject);
         modelMap.addAttribute("emptyBoughtTour", boughtObject);
         modelMap.addAttribute("customer", new Customer());
-        modelMap.addAttribute("tour", tourObject); //znieniłam typ pola id w modelu z Longa na Intiger
+        modelMap.addAttribute("tour", tourObject);
+
 
         return "tour-purchase";
     }
@@ -59,40 +58,27 @@ public class BoughtTourController {
     public String handleNewBoughtTour(@ModelAttribute("emptyBoughtTour") BoughtTour boughtTour,
                                       @ModelAttribute("customer") Customer customer
 
-//                                      Errors errors
     ) {
-//
-        log.info("wynik {} {} {} {} {}", boughtTour, customer);
-
-//        if (errors.hasErrors()) {
-//            log.error("Error occurded: " + errors.getFieldErrors());
-//
-////        if(childAmount > tour.getMinorSeats() || adultAmount > tour.getAdultSeats()){
-////            log.info("Musisz zmniejszyć ilość uczestników wycieczki, nie mamy tylu miejsc");
-////          return "tour-purchase";}
-//
-//            return "tour-purchase";
-//        }
-
-        System.out.println(tourObject.getId());
 
 
 
         customerService.save(customer);
         log.info("Dodano klienta: " + customer);
-        boughtTour.setCustomer(customer);
 
-        boughtTour.setTour(tourObject);
-        tourObject.setAdultSeats(tourObject.getAdultSeats()-boughtTour.getAdultAmount());
-        tourObject.setMinorSeats(tourObject.getMinorSeats()-boughtTour.getChildAmount());
-        tourService.save(tourObject);
-        boughtTourService.save(boughtTour);
+
+
+        tourService.save(tourObject, boughtTour);
+
+
+        boughtTourService.save(boughtTour, customer, tourObject);
+
 
         log.info("Zakupiono wycieczkę: " + boughtTour);
 
 
-        log.info("wynik {} {} {} {} {}" + customer);
-        System.out.println("działa");
+
+        log.info("wynik {} {} {} {} {}" + customer + boughtTour);
+
         return "/bought-tour";
     }
 

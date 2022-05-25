@@ -3,6 +3,7 @@ package pl.sda.zdjavapol111_travel_agency.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sda.zdjavapol111_travel_agency.model.BoughtTour;
 import pl.sda.zdjavapol111_travel_agency.model.Tour;
 import pl.sda.zdjavapol111_travel_agency.model.TourSketch;
 import pl.sda.zdjavapol111_travel_agency.repository.AirportRepository;
@@ -225,5 +226,12 @@ public class TourServiceImpl implements TourService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void save(Tour tour, BoughtTour boughtTour) {
+        tour.setAdultSeats(tour.getAdultSeats() - boughtTour.getAdultAmount());
+        tour.setMinorSeats(tour.getMinorSeats() - boughtTour.getChildAmount());
+        save(tour);
     }
 }
