@@ -251,11 +251,6 @@ public class TourServiceTest {
     }
 
 
-    @Test
-    public void shouldUpdateTour() {
-       //TODO napiszę
-    }
-
 }
 
 
